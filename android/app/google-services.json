@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "292970421105",
+    "project_id": "mezan-30b85",
+    "storage_bucket": "mezan-30b85.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292970421105:android:e3d58804fa45f9042434d0",
+        "android_client_info": {
+          "package_name": "com.example.faith"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDKCSqdCqX93BMu6NlzpbK-D77FmQ05Rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:292970421105:android:f8c288e34921bb4d2434d0",
+        "android_client_info": {
+          "package_name": "com.example.mezan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDKCSqdCqX93BMu6NlzpbK-D77FmQ05Rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
