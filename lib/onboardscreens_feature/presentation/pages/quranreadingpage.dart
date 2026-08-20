@@ -1,4 +1,3 @@
-
 import 'package:faith/colorapp.dart';
 import 'package:faith/onboardscreens_feature/presentation/pages/scorepage.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +69,7 @@ class _QuranreadingpageState extends State<Quranreadingpage>
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           children: [

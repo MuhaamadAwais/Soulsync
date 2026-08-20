@@ -63,7 +63,7 @@ class _HomepageState extends State<Homepage> {
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        "Daily Dhikr",
+                        "Quran Daily",
                         style: TextStyle(
                           color: AppColors.black,
                           fontWeight: FontWeight.w700,

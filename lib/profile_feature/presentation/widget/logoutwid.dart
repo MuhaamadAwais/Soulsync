@@ -33,7 +33,7 @@ class Logoutwid extends StatelessWidget {
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
-          width: width * 0.75,
+          width: width * 0.85,
           height: height * 0.06,
           decoration: BoxDecoration(
             color: AppColors.white,

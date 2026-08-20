@@ -38,6 +38,7 @@ class _FirstpageState extends State<Firstpage> with TickerProviderStateMixin {
     double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
           width: double.infinity,

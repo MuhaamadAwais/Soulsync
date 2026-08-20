@@ -13,53 +13,50 @@ class Counterwid extends StatelessWidget {
     final provider=Provider.of<Dhikrprovider>(context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          GestureDetector(
-            onTap: () {
-              provider.increment();
-            },
-            child: Container(
-              width: width * 0.7,
-              height: height * 0.07,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: AppColors.emeraldGreen,
-              ),
-              child: Center(
-                child: Text(
-                  "+1",
-                  style: TextStyle(
-                    color: AppColors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        GestureDetector(
+          onTap: () {
+            provider.increment();
+          },
+          child: Container(
+            width: width * 0.55,
+            height: height * 0.06,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: AppColors.emeraldGreen,
+            ),
+            child: Center(
+              child: Text(
+                "+1",
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
           ),
-          SizedBox(width: width * 0.055),
-          GestureDetector(
-            onTap: () {
-              provider.reset();
-            },
-            child: Container(
-              width: width * 0.2,
-              height: height * 0.07,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: AppColors.white,
-                border: Border.all(color: Colors.grey.shade300, width: 2),
-              ),
-              child: Center(child: Icon(Icons.recycling, color: AppColors.black)),
+        ),
+        SizedBox(width: width * 0.035),
+        GestureDetector(
+          onTap: () {
+            provider.reset();
+          },
+          child: Container(
+            width: width * 0.15,
+            height: height * 0.06,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: AppColors.white,
+              border: Border.all(color: Colors.grey.shade300, width: 1),
             ),
+            child: Center(child: Icon(Icons.recycling, color: AppColors.black)),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

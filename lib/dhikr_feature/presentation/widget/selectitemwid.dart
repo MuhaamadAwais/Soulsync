@@ -16,9 +16,9 @@ class Selectitemwid extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        buildItem(0, "SubhanAllah", width * 0.31, height * 0.055),
-        buildItem(1, "Alhamdulillah", width * 0.31, height * 0.055),
-        buildItem(2, "Allahu Akbar", width * 0.31, height * 0.055),
+        buildItem(0, "Subhan Allah", width * 0.3, height * 0.055),
+        buildItem(1, "Alhamdu lillah", width * 0.3, height * 0.055),
+        buildItem(2, "Allahu Akbar", width * 0.3, height * 0.055),
       ],
     );
   }
@@ -36,7 +36,7 @@ class Selectitemwid extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: isSelected ? AppColors.emeraldGreen : Colors.grey.shade300,
-            width: 2,
+            width: 1,
           ),
         ),
         child: Center(
@@ -45,7 +45,7 @@ class Selectitemwid extends StatelessWidget {
             style: TextStyle(
               color: isSelected ? AppColors.white : AppColors.black,
               fontWeight: FontWeight.bold,
-              fontSize: 14,
+              fontSize: 12,
             ),
           ),
         ),

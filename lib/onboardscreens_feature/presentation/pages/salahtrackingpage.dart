@@ -1,4 +1,3 @@
-
 import 'package:faith/colorapp.dart';
 import 'package:faith/onboardscreens_feature/presentation/pages/quranreadingpage.dart';
 import 'package:flutter/material.dart';
@@ -69,6 +68,7 @@ class _SalahtrackingpageState extends State<Salahtrackingpage>
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           children: [

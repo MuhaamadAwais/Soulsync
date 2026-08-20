@@ -25,11 +25,22 @@ class Dhikrnamewid extends StatelessWidget {
             position: slideAnimation,
             child: Text(
               arabic,
-              style: TextStyle(color: AppColors.emeraldGreen, fontSize: 20,fontWeight: FontWeight.w700),
+              style: TextStyle(
+                color: AppColors.emeraldGreen,
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ),
-        Text(english, style: TextStyle(color: AppColors.black, fontSize: 18,fontWeight: FontWeight.w700)),
+        Text(
+          english,
+          style: TextStyle(
+            color: AppColors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ],
     );
   }

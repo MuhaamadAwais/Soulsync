@@ -209,13 +209,13 @@ class _ProfilepageState extends State<Profilepage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
-                  elevation: 4,
+                  elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Container(
                     width: width,
-                    height: height * 0.3,
+                    height: height * 0.25,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: AppColors.white,
@@ -227,7 +227,7 @@ class _ProfilepageState extends State<Profilepage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(left: 2,top: 4),
                             child: Text(
                               "FULL NAME",
                               style: TextStyle(
@@ -237,9 +237,10 @@ class _ProfilepageState extends State<Profilepage> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 05,),
                           Container(
                             width: width * 0.85,
-                            height: height * 0.07,
+                            height: height * 0.06,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.grey.shade100,
@@ -263,7 +264,7 @@ class _ProfilepageState extends State<Profilepage> {
                           ),
 
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(left: 2,top: 5),
                             child: Text(
                               "AGE",
                               style: TextStyle(
@@ -273,9 +274,11 @@ class _ProfilepageState extends State<Profilepage> {
                               ),
                             ),
                           ),
+                              SizedBox(height: 05,),
+                      
                           Container(
                             width: width * 0.85,
-                            height: height * 0.07,
+                            height: height * 0.06,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.grey.shade100,
@@ -309,7 +312,7 @@ class _ProfilepageState extends State<Profilepage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
-                  elevation: 4,
+                  elevation: 2,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -447,7 +450,7 @@ class _ProfilepageState extends State<Profilepage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              flex: 4,
+              flex: 3,
               child: Icon(
                 icon,
                 color: isSelected ? AppColors.emeraldGreen : AppColors.black,

@@ -1,4 +1,3 @@
-
 import 'package:faith/colorapp.dart';
 import 'package:faith/signinpage.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +67,7 @@ class _ScorepageState extends State<Scorepage> with TickerProviderStateMixin {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           children: [

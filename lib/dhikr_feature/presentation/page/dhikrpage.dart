@@ -59,6 +59,7 @@ class _DhikrpageState extends State<Dhikrpage> with TickerProviderStateMixin {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Headingwid(),
@@ -82,7 +83,7 @@ class _DhikrpageState extends State<Dhikrpage> with TickerProviderStateMixin {
               ),
               SizedBox(height: height * 0.03),
               Progressdhikrwid(),
-              SizedBox(height: height * 0.03),
+              SizedBox(height: height * 0.04),
               Counterwid(),
               SizedBox(height: height * 0.02),
               Padding(
