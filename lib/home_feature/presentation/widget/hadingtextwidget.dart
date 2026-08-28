@@ -1,12 +1,15 @@
 import 'package:faith/colorapp.dart';
+import 'package:faith/profile_feature/presentation/provider/nameprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class Hadingtextwidget extends StatelessWidget {
   const Hadingtextwidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final name = context.watch<Nameprovider>().name;
     String date = DateFormat('EEEE ,MMMM d').format(DateTime.now());
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -24,7 +27,7 @@ class Hadingtextwidget extends StatelessWidget {
           ),
 
           Text(
-            "Awais",
+            name,
             style: TextStyle(
               color: AppColors.gold,
               fontSize: 18,

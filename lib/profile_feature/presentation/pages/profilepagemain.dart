@@ -1,21 +1,17 @@
-
 import 'package:faith/colorapp.dart';
+import 'package:faith/profile_feature/presentation/provider/nameprovider.dart';
 import 'package:faith/profile_feature/presentation/widget/accountwid.dart';
 import 'package:faith/profile_feature/presentation/widget/faithstatwid.dart';
 import 'package:faith/profile_feature/presentation/widget/logoutwid.dart';
 import 'package:faith/profile_feature/presentation/widget/namewid.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Profilepagemain extends StatefulWidget {
+class Profilepagemain extends StatelessWidget {
   const Profilepagemain({super.key});
-
-  @override
-  State<Profilepagemain> createState() => _ProfilepagemainState();
-}
-
-class _ProfilepagemainState extends State<Profilepagemain> {
   @override
   Widget build(BuildContext context) {
+    final name = context.watch<Nameprovider>().name;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -24,7 +20,6 @@ class _ProfilepagemainState extends State<Profilepagemain> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               Stack(
                 clipBehavior: Clip.none,
@@ -59,7 +54,7 @@ class _ProfilepagemainState extends State<Profilepagemain> {
                           ),
                           child: Center(
                             child: Text(
-                              "A",
+                              name.isNotEmpty ? name[0] : "",
                               style: TextStyle(
                                 fontSize: 30,
                                 color: AppColors.white,
@@ -89,8 +84,8 @@ class _ProfilepagemainState extends State<Profilepagemain> {
                 ),
               ),
               Accountwid(),
-               SizedBox(height: height * 0.02),
-           
+              SizedBox(height: height * 0.02),
+
               Center(child: Logoutwid()),
               SizedBox(height: height * 0.05),
             ],

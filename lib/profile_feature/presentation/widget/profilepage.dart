@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'package:faith/bottomnavi.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/profile_feature/presentation/provider/profileselectprovider.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,11 +12,8 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController ageController = TextEditingController();
-
-  final ImagePicker _picker = ImagePicker();
-  XFile? image;
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
 
   @override
   void initState() {
@@ -28,9 +23,8 @@ class _ProfilepageState extends State<Profilepage> {
 
   @override
   void dispose() {
-    nameController.dispose();
-    ageController.dispose();
-
+    _nameController.dispose();
+    _ageController.dispose();
     super.dispose();
   }
 
@@ -38,79 +32,20 @@ class _ProfilepageState extends State<Profilepage> {
     final prefs = await SharedPreferences.getInstance();
 
     final provider = Provider.of<Profileselectprovider>(context, listen: false);
-
-    await prefs.setString("name", nameController.text);
-    await prefs.setString("age", ageController.text);
+    await prefs.setString("name", _nameController.text);
+    await prefs.setString("age", _ageController.text);
     await prefs.setInt("goal", provider.selectedIndex);
-
-    if (image != null) {
-      await prefs.setString("image", image!.path);
-    }
   }
 
   Future<void> loadData() async {
     final prefs = await SharedPreferences.getInstance();
 
-    nameController.text = prefs.getString("name") ?? "";
-    ageController.text = prefs.getString("age") ?? "";
+    _nameController.text = prefs.getString("name") ?? "";
+    _ageController.text = prefs.getString("age") ?? "";
 
     final provider = Provider.of<Profileselectprovider>(context, listen: false);
 
     provider.goals(prefs.getInt("goal") ?? 0);
-
-    String? path = prefs.getString("image");
-
-    if (path != null && File(path).existsSync()) {
-      setState(() {
-        image = XFile(path);
-      });
-    }
-  }
-
-  Future<void> imageSelect(ImageSource source) async {
-    final XFile? pickedImage = await _picker.pickImage(
-      source: source,
-      imageQuality: 80,
-    );
-
-    if (pickedImage != null) {
-      setState(() {
-        image = pickedImage;
-      });
-
-      await saveData();
-    }
-  }
-
-  void showImagePickerDialog() {
-    showModalBottomSheet(
-      backgroundColor: AppColors.white,
-      context: context,
-      builder: (context) {
-        return SafeArea(
-          child: Wrap(
-            children: [
-              ListTile(
-                leading: const Icon(Icons.camera_alt),
-                title: const Text("Camera"),
-                onTap: () {
-                  Navigator.pop(context);
-                  imageSelect(ImageSource.camera);
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.photo_library),
-                title: const Text("Gallery"),
-                onTap: () {
-                  Navigator.pop(context);
-                  imageSelect(ImageSource.gallery);
-                },
-              ),
-            ],
-          ),
-        );
-      },
-    );
   }
 
   @override
@@ -155,54 +90,6 @@ class _ProfilepageState extends State<Profilepage> {
                       ),
                     ),
                   ),
-
-                  Positioned(
-                    bottom: -30,
-                    child: GestureDetector(
-                      onTap: () {
-                        showImagePickerDialog();
-                      },
-                      child: Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.white,
-                          border: Border.all(
-                            color: AppColors.emeraldGreen,
-                            width: 3,
-                          ),
-                        ),
-                        child: ClipOval(
-                          child: image == null
-                              ? Icon(Icons.account_circle, size: 40)
-                              : Image.file(
-                                  File(image!.path),
-                                  fit: BoxFit.cover,
-                                ),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  Positioned(
-                    bottom: -40,
-                    left: width * 0.5,
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.emeraldGreen,
-                        border: Border.all(color: AppColors.white, width: 1),
-                      ),
-                      child: Icon(
-                        Icons.camera_alt,
-                        color: AppColors.white,
-                        size: 14,
-                      ),
-                    ),
-                  ),
                 ],
               ),
               const SizedBox(height: 40),
@@ -227,7 +114,7 @@ class _ProfilepageState extends State<Profilepage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 2,top: 4),
+                            padding: const EdgeInsets.only(left: 2, top: 4),
                             child: Text(
                               "FULL NAME",
                               style: TextStyle(
@@ -237,34 +124,41 @@ class _ProfilepageState extends State<Profilepage> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 05,),
+                          SizedBox(height: 05),
                           Container(
                             width: width * 0.85,
                             height: height * 0.06,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.grey.shade100,
-                              border: Border.all(
-                                width: 1,
-                                color: AppColors.emeraldGreen,
-                              ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: TextField(
-                                  controller: nameController,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Your name",
+                            child: Center(
+                              child: TextField(
+                                controller: _nameController,
+                                decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: AppColors.emeraldGreen,
+                                      width: 1,
+                                    ),
                                   ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: AppColors.white,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  border: InputBorder.none,
+                                  hintText: "Your name",
                                 ),
                               ),
                             ),
                           ),
 
                           Padding(
-                            padding: const EdgeInsets.only(left: 2,top: 5),
+                            padding: const EdgeInsets.only(left: 2, top: 5),
                             child: Text(
                               "AGE",
                               style: TextStyle(
@@ -274,28 +168,36 @@ class _ProfilepageState extends State<Profilepage> {
                               ),
                             ),
                           ),
-                              SizedBox(height: 05,),
-                      
+                          SizedBox(height: 05),
+
                           Container(
                             width: width * 0.85,
                             height: height * 0.06,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Colors.grey.shade100,
-                              border: Border.all(
-                                width: 1,
-                                color: AppColors.emeraldGreen,
-                              ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: TextField(
-                                  controller: ageController,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Your age",
+                            child: Center(
+                              child: TextField(
+                                keyboardType: TextInputType.number,
+                                controller: _ageController,
+                                decoration: InputDecoration(
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: AppColors.emeraldGreen,
+                                      width: 1,
+                                    ),
                                   ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                      color: AppColors.white,
+                                      width: 1,
+                                    ),
+                                  ),
+                                  border: InputBorder.none,
+                                  hintText: "Your age",
                                 ),
                               ),
                             ),
@@ -379,7 +281,7 @@ class _ProfilepageState extends State<Profilepage> {
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
                   onTap: () async {
-                    // await saveData();
+                    await saveData();
 
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => Bottomnavi()),

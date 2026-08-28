@@ -8,29 +8,49 @@ class Logoutwid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> logout() async {
-      try {
-        await FirebaseAuth.instance.signOut();
-        print("Logout successful");
-      } on FirebaseAuthException catch (e) {
-        print("Logout error: ${e.message}");
-      }
-    }
-
+    
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap: () async {
-        await logout();
-        if (context.mounted) {
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Signinpage()),
-            (route) => false,
-          );
-        }
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: AppColors.white,
+              title: Text(
+                "Confirm logout",
+                style: TextStyle(
+                  color: AppColors.black,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              content: Text("Are you sure you want to log out?"),
+              actions: [
+                TextButton(onPressed: () {
+                  Navigator.of(context).pop();
+                }, child: Text("Cancel")),
+
+                TextButton(
+                  onPressed: () async {
+                    FirebaseAuth.instance.signOut();
+                    if (context.mounted) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => Signinpage()),
+                        (route) => false,
+                      );
+                    }
+                  },
+                  child: Text("ok"),
+                ),
+              ],
+            );
+          },
+        );
       },
+
       child: Card(
-        elevation: 4,
+        elevation: 3,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
           width: width * 0.85,

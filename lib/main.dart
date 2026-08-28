@@ -2,6 +2,7 @@ import 'package:faith/dhikr_feature/presentation/provider/dhikrprovider.dart';
 import 'package:faith/firebase_options.dart';
 import 'package:faith/home_feature/presentation/provider/homeprovider.dart';
 import 'package:faith/onboardscreens_feature/presentation/pages/firstpage.dart';
+import 'package:faith/profile_feature/presentation/provider/nameprovider.dart';
 import 'package:faith/profile_feature/presentation/provider/profileselectprovider.dart';
 import 'package:faith/progress_feature/presentation/provider/progressprovider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => Homeprovider()),
+        ChangeNotifierProvider(create: (context) => Nameprovider()..loadname()),
         ChangeNotifierProvider(create: (context) => Progressprovider()),
         ChangeNotifierProvider(create: (context) => Dhikrprovider()),
         ChangeNotifierProvider(create: (context) => Profileselectprovider()),

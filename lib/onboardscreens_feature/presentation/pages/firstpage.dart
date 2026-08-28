@@ -151,13 +151,6 @@ class _FirstpageState extends State<Firstpage> with TickerProviderStateMixin {
                   decoration: BoxDecoration(
                     color: AppColors.gold,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 10,
-                        offset: const Offset(0, 5),
-                      ),
-                    ],
                   ),
                   child: Center(
                     child: const Text(

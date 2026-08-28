@@ -1,5 +1,7 @@
 import 'package:faith/colorapp.dart';
+import 'package:faith/profile_feature/presentation/provider/nameprovider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Inputfielsdwid extends StatefulWidget {
   const Inputfielsdwid({super.key});
@@ -8,8 +10,23 @@ class Inputfielsdwid extends StatefulWidget {
   State<Inputfielsdwid> createState() => _InputfielsdwidState();
 }
 
+final TextEditingController _namecontroller = TextEditingController();
+
 class _InputfielsdwidState extends State<Inputfielsdwid> {
   String selectedGender = "Male";
+  @override
+  void initState() {
+    super.initState();
+    final nameProvider = Provider.of<Nameprovider>(context, listen: false);
+    _namecontroller.text = nameProvider.name;
+  }
+
+  @override
+  void dispose() {
+    _namecontroller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -145,7 +162,7 @@ class _InputfielsdwidState extends State<Inputfielsdwid> {
                             ? AppColors.black
                             : AppColors.white,
                         fontWeight: FontWeight.w700,
-                        fontSize: 18
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -198,14 +215,22 @@ class _InputfielsdwidState extends State<Inputfielsdwid> {
           SizedBox(height: height * 0.03),
           Center(
             child: GestureDetector(
-              onTap: () {
+              onTap: () async {
+                final nameProvider = Provider.of<Nameprovider>(
+                  context,
+                  listen: false,
+                );
+
+                await nameProvider.updateName(_namecontroller.text.trim());
+                if (!context.mounted) return;
+
                 ScaffoldMessenger.of(
                   context,
                 ).showSnackBar(SnackBar(content: Text("Save changes")));
                 Navigator.pop(context);
               },
               child: Container(
-                width: width*0.7,
+                width: width * 0.7,
                 height: height * 0.06,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
