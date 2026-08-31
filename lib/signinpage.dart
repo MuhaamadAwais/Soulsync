@@ -1,6 +1,6 @@
+import 'package:faith/bottomnavi.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/forgetpassword.dart';
-import 'package:faith/profile_feature/presentation/widget/profilepage.dart';
 import 'package:faith/singuppage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -171,7 +171,7 @@ class _SigninpageState extends State<Signinpage> {
                             if (mounted) {
                               Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute(
-                                  builder: (context) => Profilepage(),
+                                  builder: (context) => Bottomnavi(),
                                 ),
                                 (route) => false,
                               );
