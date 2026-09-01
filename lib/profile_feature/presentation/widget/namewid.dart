@@ -8,22 +8,25 @@ class Namewid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final name=context.watch<Nameprovider>().name;
+    final provider = context.watch<Nameprovider>();
     return Column(
       children: [
         Text(
-          name,
+          provider.name,
           style: TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.w700,
             fontSize: 20,
           ),
         ),
-        Text("abdullah.r@gmial.com",style: TextStyle(
+        Text(
+          provider.age,
+          style: TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.w400,
             fontSize: 14,
-          ),),
+          ),
+        ),
       ],
     );
   }

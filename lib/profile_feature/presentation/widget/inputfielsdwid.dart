@@ -10,159 +10,209 @@ class Inputfielsdwid extends StatefulWidget {
   State<Inputfielsdwid> createState() => _InputfielsdwidState();
 }
 
-final TextEditingController _namecontroller = TextEditingController();
-
 class _InputfielsdwidState extends State<Inputfielsdwid> {
+  late TextEditingController _nameController;
+  late TextEditingController _ageController;
+
   String selectedGender = "Male";
+
   @override
   void initState() {
     super.initState();
-    final nameProvider = Provider.of<Nameprovider>(context, listen: false);
-    _namecontroller.text = nameProvider.name;
+
+    _nameController = TextEditingController();
+    _ageController = TextEditingController();
+
+    final provider = Provider.of<Nameprovider>(
+      context,
+      listen: false,
+    );
+
+    _nameController.text = provider.name;
+    _ageController.text = provider.age;
   }
 
   @override
   void dispose() {
-    _namecontroller.dispose();
+    _nameController.dispose();
+    _ageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.sizeOf(context).width;
+    final height = MediaQuery.sizeOf(context).height;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
+          // ================= FULL NAME =================
+
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Text(
               "FULL NAME",
-              style: TextStyle(color: AppColors.black, fontSize: 14),
+              style: TextStyle(
+                color: AppColors.black,
+                fontSize: 14,
+              ),
             ),
           ),
+
           SizedBox(height: height * 0.01),
+
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: AppColors.white,
             ),
-            child: Center(
-              child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColors.emeraldGreen,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  prefixIcon: Icon(
-                    Icons.account_circle_outlined,
+            child: TextField(
+              controller: _nameController,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(
+                  Icons.account_circle_outlined,
+                  color: Colors.grey,
+                ),
+                hintText: "Name",
+
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
                     color: Colors.grey,
+                    width: 1,
                   ),
-                  hint: Text("Name"),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.emeraldGreen,
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),
           ),
 
+          // ================= AGE =================
+
           SizedBox(height: height * 0.02),
+
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Text(
-              "EMAIL ADDRESS",
-              style: TextStyle(color: AppColors.black, fontSize: 14),
+              "AGE",
+              style: TextStyle(
+                color: AppColors.black,
+                fontSize: 14,
+              ),
             ),
           ),
+
           SizedBox(height: height * 0.01),
+
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               color: AppColors.white,
             ),
-            child: Center(
-              child: TextField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 2),
-                    borderRadius: BorderRadius.circular(10),
+            child: TextField(
+              controller: _ageController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(
+                  Icons.calendar_today_outlined,
+                  color: Colors.grey,
+                ),
+                hintText: "Age",
+
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(
+                    color: Colors.grey,
+                    width: 1,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: AppColors.emeraldGreen,
-                      width: 2,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.emeraldGreen,
+                    width: 1,
                   ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey, width: 2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  prefixIcon: Icon(Icons.email_outlined, color: Colors.grey),
-                  hint: Text("Email"),
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),
           ),
 
+          // ================= GENDER =================
+
           SizedBox(height: height * 0.03),
-          Divider(height: 5, color: Colors.grey),
+
+          const Divider(
+            height: 5,
+            color: Colors.grey,
+          ),
 
           SizedBox(height: height * 0.02),
+
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Text(
               "GENDER",
-              style: TextStyle(color: AppColors.black, fontSize: 14),
+              style: TextStyle(
+                color: AppColors.black,
+                fontSize: 14,
+              ),
             ),
           ),
 
+          SizedBox(height: height * 0.01),
+
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedGender = "Male";
-                  });
-                },
-                child: Container(
-                  width: width * 0.45,
-                  height: height * 0.065,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      width: 2,
-                      color: selectedGender == "Male"
-                          ? Colors.grey
-                          : AppColors.emeraldGreen,
-                    ),
-                    color: selectedGender == "Male"
-                        ? AppColors.white
-                        : AppColors.emeraldGreen,
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Male",
-                      style: TextStyle(
+
+              // ================= MALE =================
+
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedGender = "Male";
+                    });
+                  },
+                  child: Container(
+                    height: height * 0.065,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+
+                      border: Border.all(
+                        width: 1,
                         color: selectedGender == "Male"
-                            ? AppColors.black
-                            : AppColors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
+                            ? AppColors.emeraldGreen
+                            : Colors.grey,
+                      ),
+
+                      color: selectedGender == "Male"
+                          ? AppColors.emeraldGreen
+                          : AppColors.white,
+                    ),
+
+                    child: Center(
+                      child: Text(
+                        "Male",
+                        style: TextStyle(
+                          color: selectedGender == "Male"
+                              ? AppColors.white
+                              : AppColors.black,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -171,36 +221,42 @@ class _InputfielsdwidState extends State<Inputfielsdwid> {
 
               SizedBox(width: width * 0.04),
 
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    selectedGender = "Female";
-                  });
-                },
-                child: Container(
-                  width: width * 0.45,
-                  height: height * 0.065,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      width: 2,
-                      color: selectedGender == "Female"
-                          ? Colors.grey
-                          : AppColors.emeraldGreen,
-                    ),
-                    color: selectedGender == "Female"
-                        ? AppColors.white
-                        : AppColors.emeraldGreen,
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Female",
-                      style: TextStyle(
+              // ================= FEMALE =================
+
+              Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedGender = "Female";
+                    });
+                  },
+                  child: Container(
+                    height: height * 0.065,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+
+                      border: Border.all(
+                        width: 1,
                         color: selectedGender == "Female"
-                            ? AppColors.black
-                            : AppColors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
+                            ? AppColors.emeraldGreen
+                            : Colors.grey,
+                      ),
+
+                      color: selectedGender == "Female"
+                          ? AppColors.emeraldGreen
+                          : AppColors.white,
+                    ),
+
+                    child: Center(
+                      child: Text(
+                        "Female",
+                        style: TextStyle(
+                          color: selectedGender == "Female"
+                              ? AppColors.white
+                              : AppColors.black,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -209,38 +265,81 @@ class _InputfielsdwidState extends State<Inputfielsdwid> {
             ],
           ),
 
-          SizedBox(height: height * 0.03),
-          Divider(height: 5, color: Colors.grey),
+          // ================= SAVE =================
 
           SizedBox(height: height * 0.03),
+
+          const Divider(
+            height: 5,
+            color: Colors.grey,
+          ),
+
+          SizedBox(height: height * 0.03),
+
           Center(
             child: GestureDetector(
               onTap: () async {
-                final nameProvider = Provider.of<Nameprovider>(
+                final newName = _nameController.text.trim();
+                final newAge = _ageController.text.trim();
+
+                // Name validation
+                if (newName.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Please enter your name"),
+                    ),
+                  );
+                  return;
+                }
+
+                // Age validation
+                if (newAge.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Please enter your age"),
+                    ),
+                  );
+                  return;
+                }
+
+                final provider = Provider.of<Nameprovider>(
                   context,
                   listen: false,
                 );
 
-                await nameProvider.updateName(_namecontroller.text.trim());
+                // Save Name
+                await provider.updateName(newName);
+
+                // Save Age
+                await provider.updateAge(newAge);
+
                 if (!context.mounted) return;
 
-                ScaffoldMessenger.of(
-                  context,
-                ).showSnackBar(SnackBar(content: Text("Save changes")));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      "Changes saved successfully",
+                    ),
+                  ),
+                );
+
                 Navigator.pop(context);
               },
+
               child: Container(
-                width: width * 0.7,
+                width: width * 0.8,
                 height: height * 0.06,
+
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: AppColors.emeraldGreen,
                 ),
-                child: Center(
+
+                child: const Center(
                   child: Text(
                     "Save Changes",
                     style: TextStyle(
-                      color: AppColors.white,
+                      color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
                     ),
@@ -249,6 +348,7 @@ class _InputfielsdwidState extends State<Inputfielsdwid> {
               ),
             ),
           ),
+
           SizedBox(height: height * 0.05),
         ],
       ),
