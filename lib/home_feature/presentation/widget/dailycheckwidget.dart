@@ -1,4 +1,3 @@
-
 import 'package:faith/colorapp.dart';
 import 'package:faith/home_feature/presentation/provider/homeprovider.dart';
 import 'package:flutter/material.dart';
@@ -21,17 +20,16 @@ class Dailycheckwidget extends StatefulWidget {
 }
 
 class _DailycheckwidgetState extends State<Dailycheckwidget> {
-
   @override
   Widget build(BuildContext context) {
-    final provider=Provider.of<Homeprovider>(context);
-    bool isDone=provider.completeed[widget.index];
+    final provider = Provider.of<Homeprovider>(context);
+    bool isDone = provider.completeed[widget.index];
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
     return GestureDetector(
       onTap: () {
-       provider.toggleTask(widget.index);
+        provider.toggleTask(widget.index);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -50,7 +48,7 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.shade300, width: 2),
+        border: Border.all(color: Colors.grey.shade300, width: 1),
       ),
       child: Row(
         children: [
@@ -59,7 +57,7 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
             height: 45,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.grey.shade300, width: 3),
+              border: Border.all(color: Colors.grey.shade300, width: 2),
             ),
           ),
 
@@ -80,7 +78,11 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
 
               Text(
                 widget.prayerTime,
-                style: const TextStyle(color: Colors.grey, fontSize: 14,fontWeight: FontWeight.w400),
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ],
           ),
@@ -101,7 +103,7 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
       decoration: BoxDecoration(
         color: AppColors.emeraldGreen.withOpacity(0.1),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.emeraldGreen, width: 2),
+        border: Border.all(color: AppColors.emeraldGreen, width: 1),
       ),
       child: Row(
         children: [

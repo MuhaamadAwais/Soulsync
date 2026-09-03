@@ -1,6 +1,6 @@
 import 'package:faith/colorapp.dart';
 import 'package:faith/home_feature/presentation/provider/homeprovider.dart';
-import 'package:faith/home_feature/presentation/widget/dailycheckwidget.dart';
+import 'package:faith/home_feature/presentation/widget/dailychecklist.dart';
 import 'package:faith/home_feature/presentation/widget/dailyhikrwid.dart';
 import 'package:faith/home_feature/presentation/widget/hadingtextwidget.dart';
 import 'package:faith/home_feature/presentation/widget/scorewidget.dart';
@@ -15,15 +15,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  final List<Map<String, String>> prayers = [
-    {"name": "Fajr", "time": "5:32 AM"},
-    {"name": "Dhuhr", "time": "12:30 PM"},
-    {"name": "Asr", "time": "4:15 PM"},
-    {"name": "Maghrib", "time": "6:55 PM"},
-    {"name": "Isha", "time": "8:20 PM"},
-    {"name": "Quran Reading", "time": "Daily"},
-    {"name": "Daily Dhikr", "time": "Daily"},
-  ];
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Homeprovider>(context);
@@ -43,7 +34,7 @@ class _HomepageState extends State<Homepage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 05,),
+                    SizedBox(height: 05),
                     Hadingtextwidget(),
                     Scorewidget(
                       score: provider.score,
@@ -85,19 +76,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                     ),
 
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: prayers.length,
-                      itemBuilder: (context, index) {
-                        return Dailycheckwidget(
-                          prayerName: prayers[index]["name"]!,
-                          prayerTime: prayers[index]["time"]!,
-                          index: index,
-                        );
-                      },
-                    ),
-
+                    Dailychecklist(),
                     SizedBox(height: height * 0.05),
                   ],
                 ),
