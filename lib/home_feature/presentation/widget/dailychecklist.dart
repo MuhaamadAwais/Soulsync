@@ -18,8 +18,27 @@ class _DailychecklistState extends State<Dailychecklist> {
   void initState() {
     super.initState();
 
-    // API sirf ek dafa call hogi
     prayerFuture = prayerService.getprayertime();
+  }
+
+  // API ke 24-hour time ko TimeOfDay mein convert karega
+  TimeOfDay parseApiTime(String time) {
+    final parts = time.split(':');
+
+    final hour = int.parse(parts[0]);
+    final minute = int.parse(parts[1]);
+
+    return TimeOfDay(
+      hour: hour,
+      minute: minute,
+    );
+  }
+
+  // API ke start aur end time ko display format mein karega
+  String formatPrayerTime(String time) {
+    final timeOfDay = parseApiTime(time);
+
+    return timeOfDay.format(context);
   }
 
   @override
@@ -28,15 +47,21 @@ class _DailychecklistState extends State<Dailychecklist> {
       future: prayerFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
 
         if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
         }
 
         if (!snapshot.hasData) {
-          return const Center(child: Text('No prayer times found'));
+          return const Center(
+            child: Text('No prayer times found'),
+          );
         }
 
         final prayerTimes = snapshot.data!;
@@ -47,41 +72,42 @@ class _DailychecklistState extends State<Dailychecklist> {
               index: 0,
               prayerName: 'Fajr',
               prayerTime:
-                  '${prayerTimes['Fajr']!['start']} - '
-                  '${prayerTimes['Fajr']!['end']}',
+                  '${formatPrayerTime(prayerTimes['Fajr']!['start']!)} - '
+                  '${formatPrayerTime(prayerTimes['Fajr']!['end']!)}',
             ),
 
             Dailycheckwidget(
               index: 1,
               prayerName: 'Dhuhr',
               prayerTime:
-                  '${prayerTimes['Dhuhr']!['start']} - '
-                  '${prayerTimes['Dhuhr']!['end']}',
+                  '${formatPrayerTime(prayerTimes['Dhuhr']!['start']!)} - '
+                  '${formatPrayerTime(prayerTimes['Dhuhr']!['end']!)}',
             ),
 
             Dailycheckwidget(
               index: 2,
               prayerName: 'Asr',
               prayerTime:
-                  '${prayerTimes['Asr']!['start']} - '
-                  '${prayerTimes['Asr']!['end']}',
+                  '${formatPrayerTime(prayerTimes['Asr']!['start']!)} - '
+                  '${formatPrayerTime(prayerTimes['Asr']!['end']!)}',
             ),
 
             Dailycheckwidget(
               index: 3,
               prayerName: 'Maghrib',
               prayerTime:
-                  '${prayerTimes['Maghrib']!['start']} - '
-                  '${prayerTimes['Maghrib']!['end']}',
+                  '${formatPrayerTime(prayerTimes['Maghrib']!['start']!)} - '
+                  '${formatPrayerTime(prayerTimes['Maghrib']!['end']!)}',
             ),
 
             Dailycheckwidget(
               index: 4,
               prayerName: 'Isha',
               prayerTime:
-                  '${prayerTimes['Isha']!['start']} - '
-                  '${prayerTimes['Isha']!['end']}',
+                  '${formatPrayerTime(prayerTimes['Isha']!['start']!)} - '
+                  '${formatPrayerTime(prayerTimes['Isha']!['end']!)}',
             ),
+
             Dailycheckwidget(
               index: 5,
               prayerName: 'Quran',
