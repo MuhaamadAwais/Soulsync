@@ -3,7 +3,7 @@ import 'package:faith/home_feature/presentation/provider/homeprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Dailycheckwidget extends StatefulWidget {
+class Dailycheckwidget extends StatelessWidget {
   final int index;
   final String prayerName;
   final String prayerTime;
@@ -16,39 +16,70 @@ class Dailycheckwidget extends StatefulWidget {
   });
 
   @override
-  State<Dailycheckwidget> createState() => _DailycheckwidgetState();
-}
-
-class _DailycheckwidgetState extends State<Dailycheckwidget> {
-  @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<Homeprovider>(context);
-    bool isDone = provider.completeed[widget.index];
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    final provider = context.watch<Homeprovider>();
+
+    final bool isDone = provider.isCompleted(index);
+
+    // First 5 = Fajr, Dhuhr, Asr, Maghrib, Isha
+    final bool isPrayer = index <= 4;
+
+    final bool isActive = isPrayer
+        ? provider.isPrayerActive(prayerName)
+        : true;
+
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
 
     return GestureDetector(
-      onTap: () {
-        provider.toggleTask(widget.index);
+      onTap: () async {
+        if (isDone) {
+          return;
+        }
+
+        if (isPrayer && !isActive) {
+          return;
+        }
+
+        await provider.toggleTask(index);
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: isDone
-            ? doneContainer(width, height)
-            : normalContainer(width, height),
+            ? lockcheck(width, height)
+            : unlockcheck(
+                width,
+                height,
+                isActive,
+              ),
       ),
     );
   }
 
-  Widget normalContainer(double width, double height) {
+  // ============================================================
+  // UNLOCK / NOT COMPLETED
+  // ============================================================
+
+  Widget unlockcheck(
+    double width,
+    double height,
+    bool isActive,
+  ) {
     return Container(
       width: width,
       height: height * 0.085,
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 15,
+      ),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.shade300, width: 1),
+        border: Border.all(
+          color: isActive
+              ? AppColors.emeraldGreen
+              : Colors.grey.shade300,
+          width: 1,
+        ),
       ),
       child: Row(
         children: [
@@ -57,7 +88,12 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
             height: 45,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.grey.shade300, width: 2),
+              border: Border.all(
+                color: isActive
+                    ? AppColors.emeraldGreen
+                    : Colors.grey.shade300,
+                width: 2,
+              ),
             ),
           ),
 
@@ -68,20 +104,21 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.prayerName,
+                prayerName,
                 style: TextStyle(
-                  color: AppColors.black,
+                  color: isActive
+                      ? AppColors.black
+                      : Colors.grey,
                   fontWeight: FontWeight.w700,
                   fontSize: 16,
                 ),
               ),
 
               Text(
-                widget.prayerTime,
+                prayerTime,
                 style: const TextStyle(
                   color: Colors.grey,
                   fontSize: 14,
-                  fontWeight: FontWeight.w400,
                 ),
               ),
             ],
@@ -89,21 +126,38 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
 
           const Spacer(),
 
-          Icon(Icons.chevron_right, color: Colors.grey.shade400),
+          Icon(
+            isActive
+                ? Icons.chevron_right
+                : Icons.lock_outline,
+            color: Colors.grey.shade400,
+          ),
         ],
       ),
     );
   }
 
-  Widget doneContainer(double width, double height) {
+  // ============================================================
+  // COMPLETED
+  // ============================================================
+
+  Widget lockcheck(
+    double width,
+    double height,
+  ) {
     return Container(
       width: width,
       height: height * 0.1,
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 15,
+      ),
       decoration: BoxDecoration(
         color: AppColors.emeraldGreen.withOpacity(0.1),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.emeraldGreen, width: 1),
+        border: Border.all(
+          color: AppColors.emeraldGreen,
+          width: 1,
+        ),
       ),
       child: Row(
         children: [
@@ -114,7 +168,11 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
               shape: BoxShape.circle,
               color: AppColors.emeraldGreen,
             ),
-            child: const Icon(Icons.check, size: 24, color: Colors.white),
+            child: const Icon(
+              Icons.check,
+              size: 24,
+              color: Colors.white,
+            ),
           ),
 
           const SizedBox(width: 15),
@@ -124,7 +182,7 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.prayerName,
+                prayerName,
                 style: const TextStyle(
                   color: AppColors.emeraldGreen,
                   fontWeight: FontWeight.bold,
@@ -133,7 +191,7 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
               ),
 
               Text(
-                widget.prayerTime,
+                prayerTime,
                 style: const TextStyle(
                   color: AppColors.emeraldGreen,
                   fontSize: 14,
@@ -145,7 +203,10 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
           const Spacer(),
 
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 6,
+            ),
             decoration: BoxDecoration(
               color: AppColors.emeraldGreen.withOpacity(0.15),
               borderRadius: BorderRadius.circular(20),
@@ -161,7 +222,11 @@ class _DailycheckwidgetState extends State<Dailycheckwidget> {
                   ),
                 ),
                 SizedBox(width: 4),
-                Icon(Icons.check, size: 18, color: AppColors.emeraldGreen),
+                Icon(
+                  Icons.check,
+                  size: 18,
+                  color: AppColors.emeraldGreen,
+                ),
               ],
             ),
           ),

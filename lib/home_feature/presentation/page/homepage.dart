@@ -1,5 +1,6 @@
 import 'package:faith/colorapp.dart';
 import 'package:faith/home_feature/presentation/provider/homeprovider.dart';
+import 'package:faith/home_feature/presentation/services/payertimeservice.dart';
 import 'package:faith/home_feature/presentation/widget/dailychecklist.dart';
 import 'package:faith/home_feature/presentation/widget/dailyhikrwid.dart';
 import 'package:faith/home_feature/presentation/widget/hadingtextwidget.dart';
@@ -11,73 +12,190 @@ class Homepage extends StatefulWidget {
   const Homepage({super.key});
 
   @override
-  State<Homepage> createState() => _HomepageState();
+  State<Homepage> createState() =>
+      _HomepageState();
 }
 
-class _HomepageState extends State<Homepage> {
+class _HomepageState
+    extends State<Homepage> {
   @override
-  Widget build(BuildContext context) {
-    final provider = Provider.of<Homeprovider>(context);
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) {
+      _initialize();
+    });
+  }
+
+  // ============================================================
+  // INITIALIZE
+  // ============================================================
+
+  Future<void> _initialize() async {
+    final provider =
+        Provider.of<Homeprovider>(
+      context,
+      listen: false,
+    );
+
+    await provider.initialize();
+
+    await loadPrayerTimes();
+  }
+
+  // ============================================================
+  // LOAD PRAYER TIMES
+  // ============================================================
+
+  Future<void> loadPrayerTimes() async {
+    try {
+      final service =
+          Payertimeservice();
+
+      final times =
+          await service.getprayertime();
+
+      if (!mounted) {
+        return;
+      }
+
+      Provider.of<Homeprovider>(
+        context,
+        listen: false,
+      ).setPrayerTimes(times);
+    } catch (e) {
+      debugPrint(
+        'Prayer time error: $e',
+      );
+    }
+  }
+
+  @override
+  Widget build(
+    BuildContext context,
+  ) {
+    final provider =
+        context.watch<Homeprovider>();
+
+    final double width =
+        MediaQuery.of(context)
+            .size
+            .width;
+
+    final double height =
+        MediaQuery.of(context)
+            .size
+            .height;
+
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor:
+          Colors.grey.shade100,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              // ==================================================
+              // TOP
+              // ==================================================
+
               Container(
                 width: width,
                 height: height * 0.43,
-                color: AppColors.emeraldGreen,
+                color:
+                    AppColors.emeraldGreen,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment:
+                      MainAxisAlignment
+                          .spaceEvenly,
+                  crossAxisAlignment:
+                      CrossAxisAlignment
+                          .start,
                   children: [
-                    SizedBox(height: 05),
-                    Hadingtextwidget(),
-                    Scorewidget(
-                      score: provider.score,
-                      CompletedCount: provider.CompletedCount,
+                    const SizedBox(
+                      height: 5,
                     ),
-                    SizedBox(height: height * 0.02),
+
+                    const Hadingtextwidget(),
+
+                    Scorewidget(
+                      score:
+                          provider.score,
+                      CompletedCount:
+                          provider
+                              .CompletedCount,
+                    ),
+
+                    SizedBox(
+                      height:
+                          height * 0.02,
+                    ),
                   ],
                 ),
               ),
-              SizedBox(height: height * 0.02),
+
+              SizedBox(
+                height:
+                    height * 0.02,
+              ),
+
+              // ==================================================
+              // BOTTOM
+              // ==================================================
+
               Container(
                 width: width,
-                color: Colors.grey.shade100,
+                color:
+                    Colors.grey.shade100,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment:
+                      CrossAxisAlignment
+                          .start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding:
+                          const EdgeInsets
+                              .all(8.0),
                       child: Text(
                         "Quran Daily",
-                        style: TextStyle(
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w700,
+                        style:
+                            TextStyle(
+                          color:
+                              AppColors.black,
+                          fontWeight:
+                              FontWeight
+                                  .w700,
                           fontSize: 20,
                         ),
                       ),
                     ),
 
-                    Dailyhikrwid(),
+                    const Dailyhikrwid(),
+
                     Padding(
-                      padding: EdgeInsets.all(8.0),
+                      padding:
+                          const EdgeInsets
+                              .all(8.0),
                       child: Text(
                         "Daily Checklist",
-                        style: TextStyle(
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w700,
+                        style:
+                            TextStyle(
+                          color:
+                              AppColors.black,
+                          fontWeight:
+                              FontWeight
+                                  .w700,
                           fontSize: 20,
                         ),
                       ),
                     ),
 
-                    Dailychecklist(),
-                    SizedBox(height: height * 0.05),
+                    const Dailychecklist(),
+
+                    SizedBox(
+                      height:
+                          height * 0.05,
+                    ),
                   ],
                 ),
               ),

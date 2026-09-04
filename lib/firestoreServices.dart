@@ -4,10 +4,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 class Firestoreservices {
   final FirebaseFirestore _firebase = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String get uid => _auth.currentUser!.uid;
+
+  String get uid {
+    final user = _auth.currentUser;
+
+    if (user == null) {
+      throw Exception('User is not signed in');
+    }
+
+    return user.uid;
+  }
 
   String get todaydate {
     final now = DateTime.now();
+
     return '${now.year}-'
         '${now.month.toString().padLeft(2, '0')}-'
         '${now.day.toString().padLeft(2, '0')}';
@@ -28,28 +38,45 @@ class Firestoreservices {
     required bool maghrib,
     required bool isha,
     required bool quranCompleted,
-    required bool dhikrCompeleted,
+    required bool dhikrCompleted,
     required int score,
   }) async {
-    await todayProgress.set({
-      'date': todaydate,
-      'fajr': fajr,
-      'dhuhr': dhuhr,
-      'asr': asr,
-      'maghrib': maghrib,
-      'isha': isha,
-      'quranCompleted': quranCompleted,
-      'dhikrCompleted': dhikrCompeleted,
-      'score': score,
-      'updatedAt': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
+    try {
+      await todayProgress.set(
+        {
+          'date': todaydate,
+          'fajr': fajr,
+          'dhuhr': dhuhr,
+          'asr': asr,
+          'maghrib': maghrib,
+          'isha': isha,
+          'quranCompleted': quranCompleted,
+          'dhikrCompleted': dhikrCompleted,
+          'score': score,
+          'updatedAt': FieldValue.serverTimestamp(),
+        },
+        SetOptions(merge: true),
+      );
+
+      print('Firestore saved successfully');
+    } catch (e) {
+      print('Firestore save error: $e');
+      rethrow;
+    }
   }
 
   Future<Map<String, dynamic>?> getTodayprogress() async {
-    final snapshot = await todayProgress.get();
-    if (snapshot.exists) {
-      return snapshot.data();
+    try {
+      final snapshot = await todayProgress.get();
+
+      if (snapshot.exists) {
+        return snapshot.data();
+      }
+
+      return null;
+    } catch (e) {
+      print('Firestore read error: $e');
+      return null;
     }
-    return null;
   }
 }

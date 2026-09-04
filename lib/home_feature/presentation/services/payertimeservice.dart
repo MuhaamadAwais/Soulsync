@@ -6,8 +6,8 @@ class Payertimeservice {
   Future<Map<String, Map<String, String>>> getprayertime() async {
     final now = DateTime.now();
     final date =
-        '${now.day.toString().padLeft(2, '')}-'
-        '${now.month.toString().padLeft(2, '')}-'
+        '${now.day.toString().padLeft(2, '0')}-'
+        '${now.month.toString().padLeft(2, '0')}-'
         '${now.year}';
 
     final url = await Uri.parse(
