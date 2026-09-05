@@ -1,37 +1,39 @@
 import 'package:faith/colorapp.dart';
+import 'package:faith/progress_feature/presentation/provider/progressprovider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Counttotalwid extends StatelessWidget {
-  const Counttotalwid({super.key});
-
+  Counttotalwid({super.key});
   @override
   Widget build(BuildContext context) {
+    final progresspro = Provider.of<Progressprovider>(context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         totalcounts(
-          width * 0.25,
+          width * 0.27,
           height * 0.15,
           Icons.mosque,
-          "127",
+          progresspro.totalPrayers.toString(),
           "Total Salah",
         ),
 
         totalcounts(
-          width * 0.25,
+          width * 0.27,
           height * 0.15,
           Icons.auto_stories,
-          "18",
+          progresspro.quranDays.toString(),
           "Quran Days",
         ),
 
         totalcounts(
-          width * 0.25,
+          width * 0.27,
           height * 0.15,
           Icons.menu_book,
-          "23",
+          progresspro.dhikrDays.toString(),
           "Dhikr Days",
         ),
       ],
@@ -49,7 +51,7 @@ class Counttotalwid extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300, width: 2),
+        border: Border.all(color: Colors.grey.shade300, width: 1),
         color: AppColors.white,
         borderRadius: BorderRadius.circular(20),
       ),
@@ -70,7 +72,7 @@ class Counttotalwid extends StatelessWidget {
             style: TextStyle(
               color: AppColors.black,
               fontWeight: FontWeight.w400,
-              fontSize: 13,
+              fontSize: 12,
             ),
           ),
         ],

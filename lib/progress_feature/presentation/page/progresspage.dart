@@ -1,10 +1,8 @@
-
 import 'package:faith/colorapp.dart';
 import 'package:faith/progress_feature/presentation/provider/progressprovider.dart';
 import 'package:faith/progress_feature/presentation/widget/achievementwid.dart';
 import 'package:faith/progress_feature/presentation/widget/counttotalwid.dart';
 import 'package:faith/progress_feature/presentation/widget/maincontiwidprogess.dart';
-import 'package:faith/progress_feature/presentation/widget/steekwidprogess.dart';
 import 'package:faith/progress_feature/presentation/widget/weeklyaverageprogress.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,12 +15,14 @@ class Progresspage extends StatefulWidget {
 }
 
 class _ProgresspageState extends State<Progresspage> {
-  final achievements = [
-    {"title": "3 Day Streak", "subtitle": "Completed Salah for 3 days"},
-    {"title": "7 Day Streak", "subtitle": "Completed Salah for 7 days"},
-    {"title": "15 Day Streak", "subtitle": "Completed Salah for 15 days"},
-    {"title": "30 Day Streak", "subtitle": "Completed Salah for 30 days"},
-  ];
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<Progressprovider>().loadProgress();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final providerpro = Provider.of<Progressprovider>(context);
@@ -36,10 +36,6 @@ class _ProgresspageState extends State<Progresspage> {
             children: [
               Maincontiwidprogess(),
               SizedBox(height: height * 0.02),
-              Steekwidprogess(
-                currentStreak: providerpro.currentStreak,
-                bestStreak: providerpro.bestStreak,
-              ),
               Weeklyaverageprogress(),
               SizedBox(height: height * 0.02),
               Counttotalwid(),

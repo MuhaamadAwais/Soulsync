@@ -79,4 +79,22 @@ class Firestoreservices {
       return null;
     }
   }
+
+
+  Future<List<Map<String, dynamic>>> getAllProgress() async {
+  try {
+    final snapshot = await _firebase
+        .collection('users')
+        .doc(uid)
+        .collection('daily_progress')
+        .get();
+
+    return snapshot.docs.map((doc) {
+      return doc.data();
+    }).toList();
+  } catch (e) {
+    print('Get all progress error: $e');
+    return [];
+  }
+}
 }
