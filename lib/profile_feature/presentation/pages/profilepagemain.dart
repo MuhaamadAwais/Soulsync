@@ -1,7 +1,6 @@
 import 'package:faith/colorapp.dart';
 import 'package:faith/profile_feature/presentation/provider/nameprovider.dart';
 import 'package:faith/profile_feature/presentation/widget/accountwid.dart';
-import 'package:faith/profile_feature/presentation/widget/faithstatwid.dart';
 import 'package:faith/profile_feature/presentation/widget/logoutwid.dart';
 import 'package:faith/profile_feature/presentation/widget/namewid.dart';
 import 'package:flutter/material.dart';
@@ -68,12 +67,10 @@ class Profilepagemain extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: height * 0.06),
+              SizedBox(height: 40),
               Center(child: Namewid()),
-              SizedBox(height: height * 0.03),
-              Faithstatwid(),
               Padding(
-                padding: const EdgeInsets.only(top: 16, left: 16),
+                padding: const EdgeInsets.only(top: 0, left: 16),
                 child: Text(
                   "Account",
                   style: TextStyle(
