@@ -1,4 +1,4 @@
-package com.example.faith
+package com.mawais.soulsync
 
 import io.flutter.embedding.android.FlutterActivity
 
