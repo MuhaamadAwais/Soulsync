@@ -1,8 +1,10 @@
 import 'package:faith/colorapp.dart';
 import 'package:faith/profile_feature/presentation/widget/profilepage.dart';
 import 'package:faith/signinpage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
+import 'authprovider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Singuppage extends StatefulWidget {
   const Singuppage({super.key});
@@ -48,6 +50,7 @@ class _SinguppageState extends State<Singuppage> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final authprovider = Provider.of<AuthProviders>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -173,7 +176,7 @@ class _SinguppageState extends State<Singuppage> {
                             child: TextField(
                               controller: _passwordcontroller,
                               textAlignVertical: TextAlignVertical.center,
-                              obscureText: true,
+                              obscureText: !authprovider.isPasswordVisible,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
@@ -181,7 +184,16 @@ class _SinguppageState extends State<Singuppage> {
                                   color: AppColors.emeraldGreen,
                                 ),
                                 hint: Text("Password"),
-                                suffixIcon: Icon(Icons.visibility_outlined),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    authprovider.togglePasswordVisibility();
+                                  },
+                                  icon: Icon(
+                                    authprovider.isPasswordVisible
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -202,7 +214,7 @@ class _SinguppageState extends State<Singuppage> {
                             child: TextField(
                               controller: _confirmpasswordcontroller,
                               textAlignVertical: TextAlignVertical.center,
-                              obscureText: true,
+                              obscureText: !authprovider.isconfirmpassword,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
@@ -210,7 +222,16 @@ class _SinguppageState extends State<Singuppage> {
                                   color: AppColors.emeraldGreen,
                                 ),
                                 hint: Text("Confirm  Password"),
-                                suffixIcon: Icon(Icons.visibility_outlined),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    authprovider.toggleconfirmpassword();
+                                  },
+                                  icon: Icon(
+                                    authprovider.isconfirmpassword
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

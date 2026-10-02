@@ -1,4 +1,5 @@
 import 'package:faith/bottomnavi.dart';
+import 'authprovider.dart';
 import 'package:faith/dhikr_feature/presentation/provider/dhikrprovider.dart';
 import 'package:faith/firebase_options.dart';
 import 'package:faith/home_feature/presentation/provider/homeprovider.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser;
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => AuthProviders()),
         ChangeNotifierProvider(create: (context) => Homeprovider()),
         ChangeNotifierProvider(create: (context) => Nameprovider()..loadData()),
         ChangeNotifierProvider(create: (context) => Progressprovider()),

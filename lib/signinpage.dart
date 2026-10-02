@@ -2,8 +2,10 @@ import 'package:faith/bottomnavi.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/forgetpassword.dart';
 import 'package:faith/singuppage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'authprovider.dart';
 
 class Signinpage extends StatefulWidget {
   const Signinpage({super.key});
@@ -28,10 +30,12 @@ class _SigninpageState extends State<Signinpage> {
 
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _passwordcontroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    final authProvider = Provider.of<AuthProviders>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -126,16 +130,23 @@ class _SigninpageState extends State<Signinpage> {
                           child: Center(
                             child: TextField(
                               controller: _passwordcontroller,
-                              textAlignVertical: TextAlignVertical.center,
-                              obscureText: true,
+                              obscureText: !authProvider.isPasswordVisible,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
                                   Icons.lock_outline,
                                   color: AppColors.emeraldGreen,
                                 ),
-                                hint: Text("Password"),
-                                suffixIcon: Icon(Icons.visibility_outlined),
+                                hintText: "Password",
+                                suffixIcon: IconButton(
+                                  onPressed:
+                                      authProvider.togglePasswordVisibility,
+                                  icon: Icon(
+                                    authProvider.isPasswordVisible
+                                        ? Icons.visibility_outlined
+                                        : Icons.visibility_off_outlined,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -269,3 +280,4 @@ class _SigninpageState extends State<Signinpage> {
     );
   }
 }
+

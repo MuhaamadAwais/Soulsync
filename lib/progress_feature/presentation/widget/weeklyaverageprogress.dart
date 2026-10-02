@@ -7,8 +7,7 @@ class Weeklyaverageprogress extends StatefulWidget {
   const Weeklyaverageprogress({super.key});
 
   @override
-  State<Weeklyaverageprogress> createState() =>
-      _WeeklyaverageprogressState();
+  State<Weeklyaverageprogress> createState() => _WeeklyaverageprogressState();
 }
 
 class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
@@ -51,13 +50,9 @@ class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
         }
 
         // Difference from Monday
-        final difference = date.difference(
-          DateTime(
-            monday.year,
-            monday.month,
-            monday.day,
-          ),
-        ).inDays;
+        final difference = date
+            .difference(DateTime(monday.year, monday.month, monday.day))
+            .inDays;
 
         // Current week only
         if (difference >= 0 && difference < 7) {
@@ -87,15 +82,13 @@ class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
   }
 
   double get weeklyAverage {
-    final scoresWithData =
-        weeklyScores.where((score) => score > 0).toList();
+    final scoresWithData = weeklyScores.where((score) => score > 0).toList();
 
     if (scoresWithData.isEmpty) {
       return 0;
     }
 
-    final total =
-        scoresWithData.reduce((a, b) => a + b);
+    final total = scoresWithData.reduce((a, b) => a + b);
 
     return total / scoresWithData.length;
   }
@@ -109,9 +102,7 @@ class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         elevation: 5,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: Container(
           width: width,
           height: height * 0.35,
@@ -126,8 +117,7 @@ class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
                 Row(
                   children: [
                     Column(
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Weekly Average",
@@ -148,41 +138,6 @@ class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
                           ),
                         ),
                       ],
-                    ),
-
-                    const Spacer(),
-
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(20),
-                        color: AppColors.emeraldGreen
-                            .withOpacity(0.15),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.arrow_upward,
-                            size: 18,
-                            color: AppColors.emeraldGreen,
-                          ),
-
-                          const SizedBox(width: 4),
-
-                          Text(
-                            "This week",
-                            style: TextStyle(
-                              color:
-                                  AppColors.emeraldGreen,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),
@@ -206,27 +161,19 @@ class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
                               drawVerticalLine: false,
                             ),
 
-                            borderData:
-                                FlBorderData(show: false),
+                            borderData: FlBorderData(show: false),
 
                             titlesData: FlTitlesData(
                               topTitles: AxisTitles(
-                                sideTitles:
-                                    SideTitles(
-                                  showTitles: false,
-                                ),
+                                sideTitles: SideTitles(showTitles: false),
                               ),
 
                               rightTitles: AxisTitles(
-                                sideTitles:
-                                    SideTitles(
-                                  showTitles: false,
-                                ),
+                                sideTitles: SideTitles(showTitles: false),
                               ),
 
                               leftTitles: AxisTitles(
-                                sideTitles:
-                                    SideTitles(
+                                sideTitles: SideTitles(
                                   showTitles: true,
                                   reservedSize: 30,
                                   interval: 20,
@@ -234,12 +181,10 @@ class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
                               ),
 
                               bottomTitles: AxisTitles(
-                                sideTitles:
-                                    SideTitles(
+                                sideTitles: SideTitles(
                                   showTitles: true,
                                   interval: 1,
-                                  getTitlesWidget:
-                                      (value, meta) {
+                                  getTitlesWidget: (value, meta) {
                                     const days = [
                                       'Mon',
                                       'Tue',
@@ -250,24 +195,14 @@ class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
                                       'Sun',
                                     ];
 
-                                    final index =
-                                        value.toInt();
+                                    final index = value.toInt();
 
-                                    if (index >= 0 &&
-                                        index <
-                                            days.length) {
+                                    if (index >= 0 && index < days.length) {
                                       return Padding(
-                                        padding:
-                                            const EdgeInsets
-                                                .only(
-                                          top: 8,
-                                        ),
+                                        padding: const EdgeInsets.only(top: 8),
                                         child: Text(
                                           days[index],
-                                          style:
-                                              const TextStyle(
-                                            fontSize: 12,
-                                          ),
+                                          style: const TextStyle(fontSize: 12),
                                         ),
                                       );
                                     }
@@ -280,33 +215,26 @@ class _WeeklyaverageprogressState extends State<Weeklyaverageprogress> {
 
                             lineBarsData: [
                               LineChartBarData(
-                                spots: List.generate(
-                                  7,
-                                  (index) {
-                                    return FlSpot(
-                                      index.toDouble(),
-                                      weeklyScores[index],
-                                    );
-                                  },
-                                ),
+                                spots: List.generate(7, (index) {
+                                  return FlSpot(
+                                    index.toDouble(),
+                                    weeklyScores[index],
+                                  );
+                                }),
 
                                 isCurved: true,
 
                                 barWidth: 4,
 
-                                color:
-                                    AppColors.emeraldGreen,
+                                color: AppColors.emeraldGreen,
 
-                                dotData: FlDotData(
-                                  show: true,
-                                ),
+                                dotData: FlDotData(show: true),
 
-                                belowBarData:
-                                    BarAreaData(
+                                belowBarData: BarAreaData(
                                   show: true,
-                                  color: AppColors
-                                      .emeraldGreen
-                                      .withOpacity(0.15),
+                                  color: AppColors.emeraldGreen.withOpacity(
+                                    0.15,
+                                  ),
                                 ),
                               ),
                             ],

@@ -23,16 +23,13 @@ class _DhikrpageState extends State<Dhikrpage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 600),
     );
-
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
     );
-
     _slideAnimation =
         Tween<Offset>(
           begin: const Offset(0, 0.2), // niche se start
@@ -40,7 +37,6 @@ class _DhikrpageState extends State<Dhikrpage> with TickerProviderStateMixin {
         ).animate(
           CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
         );
-
     _animationController.forward();
   }
 
