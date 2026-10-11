@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,16 +13,8 @@ class QuranService {
 
     final now = DateTime.now();
 
-    // Aaj ka 6 AM time
-    DateTime today6AM = DateTime(
-      now.year,
-      now.month,
-      now.day,
-      6,
-    );
+    DateTime today6AM = DateTime(now.year, now.month, now.day, 6);
 
-    // Agar abhi 6 AM se pehle hain
-    // to current daily ayah previous day ki hogi
     if (now.isBefore(today6AM)) {
       today6AM = today6AM.subtract(const Duration(days: 1));
     }
@@ -33,7 +26,10 @@ class QuranService {
 
     final savedDate = prefs.getString(savedDateKey);
 
-    // Agar aaj ki ayat already saved hai
+    // ============================================================
+    // ALREADY SAVED AYAH
+    // ============================================================
+
     if (savedDate == currentDailyDate) {
       return {
         'arabic': prefs.getString(arabicKey) ?? '',
@@ -41,46 +37,78 @@ class QuranService {
       };
     }
 
-    // New daily ayah
-    final randomResponse = await http.get(
-      Uri.parse(
-        'https://api.alquran.cloud/v1/ayah/random',
-      ),
-    );
+    // ============================================================
+    // NEW AYAH FROM API
+    // ============================================================
 
-    if (randomResponse.statusCode != 200) {
-      throw Exception('Failed to load Arabic ayah');
+    try {
+      final randomResponse = await http
+          .get(Uri.parse('https://api.alquran.cloud/v1/ayah/random'))
+          .timeout(const Duration(seconds: 5));
+
+      if (randomResponse.statusCode != 200) {
+        throw Exception('Failed to load Arabic ayah');
+      }
+
+      final randomData = jsonDecode(randomResponse.body);
+
+      final ayahNumber = randomData['data']['number'];
+
+      final arabicText = randomData['data']['text'];
+
+      // ==========================================================
+      // URDU
+      // ==========================================================
+
+      final urduResponse = await http
+          .get(
+            Uri.parse(
+              'https://api.alquran.cloud/v1/ayah/$ayahNumber/ur.jalandhry',
+            ),
+          )
+          .timeout(const Duration(seconds: 5));
+
+      if (urduResponse.statusCode != 200) {
+        throw Exception('Failed to load Urdu translation');
+      }
+
+      final urduData = jsonDecode(urduResponse.body);
+
+      final urduText = urduData['data']['text'];
+
+      // ==========================================================
+      // SAVE
+      // ==========================================================
+
+      await prefs.setString(arabicKey, arabicText);
+
+      await prefs.setString(urduKey, urduText);
+
+      await prefs.setString(savedDateKey, currentDailyDate);
+
+      return {'arabic': arabicText, 'urdu': urduText};
     }
+    // ============================================================
+    // NO INTERNET / API ERROR
+    // ============================================================
+    catch (e) {
+      debugPrint('Quran API error: $e');
 
-    final randomData = jsonDecode(randomResponse.body);
+      // Purani saved ayat show karo
+      final savedArabic = prefs.getString(arabicKey);
 
-    final ayahNumber = randomData['data']['number'];
+      final savedUrdu = prefs.getString(urduKey);
 
-    final arabicText = randomData['data']['text'];
+      if (savedArabic != null &&
+          savedArabic.isNotEmpty &&
+          savedUrdu != null &&
+          savedUrdu.isNotEmpty) {
+        return {'arabic': savedArabic, 'urdu': savedUrdu};
+      }
 
-    // Same ayah ki Urdu translation
-    final urduResponse = await http.get(
-      Uri.parse(
-        'https://api.alquran.cloud/v1/ayah/$ayahNumber/ur.jalandhry',
-      ),
-    );
-
-    if (urduResponse.statusCode != 200) {
-      throw Exception('Failed to load Urdu translation');
+      // Agar pehli dafa app open hui hai
+      // aur koi ayat save nahi hai
+      return {'arabic': '', 'urdu': ''};
     }
-
-    final urduData = jsonDecode(urduResponse.body);
-
-    final urduText = urduData['data']['text'];
-
-    // Save today's ayah
-    await prefs.setString(arabicKey, arabicText);
-    await prefs.setString(urduKey, urduText);
-    await prefs.setString(savedDateKey, currentDailyDate);
-
-    return {
-      'arabic': arabicText,
-      'urdu': urduText,
-    };
   }
 }
