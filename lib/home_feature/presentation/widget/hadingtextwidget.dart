@@ -1,3 +1,4 @@
+import 'package:faith/apptextstyle.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/profile_feature/presentation/provider/nameprovider.dart';
 import 'package:flutter/material.dart';
@@ -17,23 +18,8 @@ class Hadingtextwidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(date, style: TextStyle(color: Colors.white70, fontSize: 14)),
-          Text(
-            "Assalamu Alaikum",
-            style: TextStyle(
-              color: AppColors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-
-          Text(
-            name,
-            style: TextStyle(
-              color: AppColors.gold,
-              fontSize: 18,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
+          Text("Assalamu Alaikum", style: Apptextstyle.subHeading),
+          Text(name, style: Apptextstyle.body.copyWith(color: AppColors.gold)),
         ],
       ),
     );

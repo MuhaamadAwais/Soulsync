@@ -1,3 +1,4 @@
+import 'package:faith/apptextstyle.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/onboardscreens_feature/presentation/pages/quranreadingpage.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class _SalahtrackingpageState extends State<Salahtrackingpage>
                     ),
                     child: const Icon(
                       Icons.mosque,
-                      size: 75,
+                      size: 50,
                       color: Colors.white,
                     ),
                   ),
@@ -111,10 +112,8 @@ class _SalahtrackingpageState extends State<Salahtrackingpage>
                   children: [
                     Text(
                       "Salah Tracking",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
+                      style: Apptextstyle.subHeading.copyWith(
+                        color: AppColors.black,
                       ),
                     ),
 
@@ -124,11 +123,8 @@ class _SalahtrackingpageState extends State<Salahtrackingpage>
                       position: _slideanimation,
                       child: Text(
                         "Never miss a prayer. Track all five daily prayers and build a consistent Salah habit with reminders.",
-                        style: TextStyle(
-                          fontSize: 16,
+                        style: Apptextstyle.body.copyWith(
                           color: Colors.black54,
-                          fontWeight: FontWeight.w400,
-                          height: 1.5,
                         ),
                       ),
                     ),
@@ -185,11 +181,7 @@ class _SalahtrackingpageState extends State<Salahtrackingpage>
                               children: [
                                 Text(
                                   "Next",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: Apptextstyle.button
                                 ),
                                 SizedBox(width: 8),
                                 Icon(

@@ -1,3 +1,4 @@
+import 'package:faith/apptextstyle.dart';
 import 'package:faith/bottomnavi.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/onboardscreens_feature/presentation/pages/salahtrackingpage.dart';
@@ -87,12 +88,7 @@ class _FirstpageState extends State<Firstpage> with TickerProviderStateMixin {
 
               Text(
                 "Faith Check",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 20,
-                  letterSpacing: 1,
-                ),
+                style: Apptextstyle.heading,
               ),
 
               const SizedBox(height: 8),
@@ -155,12 +151,7 @@ class _FirstpageState extends State<Firstpage> with TickerProviderStateMixin {
                   child: Center(
                     child: const Text(
                       "Get Started",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.5,
-                      ),
+                      style: Apptextstyle.button
                     ),
                   ),
                 ),

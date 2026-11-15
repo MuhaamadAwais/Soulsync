@@ -1,3 +1,4 @@
+import 'package:faith/apptextstyle.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/signinpage.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +89,7 @@ class _ScorepageState extends State<Scorepage> with TickerProviderStateMixin {
                     ),
                     child: const Icon(
                       Icons.emoji_events,
-                      size: 75,
+                      size: 50,
                       color: Colors.white,
                     ),
                   ),
@@ -107,12 +108,10 @@ class _ScorepageState extends State<Scorepage> with TickerProviderStateMixin {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Daily Faith Score",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
+                      style: Apptextstyle.subHeading.copyWith(
+                        color: AppColors.black,
                       ),
                     ),
 
@@ -121,12 +120,9 @@ class _ScorepageState extends State<Scorepage> with TickerProviderStateMixin {
                     SlideTransition(
                       position: _slideanimation,
                       child: Text(
-                        "See your overall Faith Score each day based on prayers, Quran, and Dhikr completed.",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
+                        "See your overall Faith sScore each day based on prayers, Quran, and Dhikr completed.",
+                        style: Apptextstyle.body.copyWith(
                           color: Colors.black54,
-                          height: 1.5,
                         ),
                       ),
                     ),
@@ -180,11 +176,7 @@ class _ScorepageState extends State<Scorepage> with TickerProviderStateMixin {
                               children: [
                                 Text(
                                   "Start My Journey",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                                  style: Apptextstyle.button,
                                 ),
                               ],
                             ),

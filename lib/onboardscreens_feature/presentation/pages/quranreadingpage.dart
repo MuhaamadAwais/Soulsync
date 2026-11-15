@@ -1,3 +1,4 @@
+import 'package:faith/apptextstyle.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/onboardscreens_feature/presentation/pages/scorepage.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +91,7 @@ class _QuranreadingpageState extends State<Quranreadingpage>
                     ),
                     child: const Icon(
                       Icons.auto_stories,
-                      size: 75,
+                      size: 50,
                       color: Colors.white,
                     ),
                   ),
@@ -110,12 +111,10 @@ class _QuranreadingpageState extends State<Quranreadingpage>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Quran Reading Progress",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
+                      style: Apptextstyle.subHeading.copyWith(
+                        color: AppColors.black,
                       ),
                     ),
 
@@ -125,12 +124,10 @@ class _QuranreadingpageState extends State<Quranreadingpage>
                       position: _slideanimation,
                       child: Text(
                         "Log your daily Quran readin,track Juz completion, and build a consistent reading strak.",
-                        style: TextStyle(
-                          fontSize: 16,
+                          style: Apptextstyle.body.copyWith(
                           color: Colors.black54,
-                          fontWeight: FontWeight.w400,
-                          height: 1.5,
                         ),
+                      
                       ),
                     ),
 
@@ -184,14 +181,7 @@ class _QuranreadingpageState extends State<Quranreadingpage>
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  "Next",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
+                                Text("Next", style: Apptextstyle.button),
                                 SizedBox(width: 8),
                                 Icon(
                                   Icons.arrow_forward_ios,

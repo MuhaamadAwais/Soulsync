@@ -1,3 +1,4 @@
+import 'package:faith/apptextstyle.dart';
 import 'package:faith/bottomnavi.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/forgetpassword.dart';
@@ -51,19 +52,11 @@ class _SigninpageState extends State<Signinpage> {
                   children: [
                     Text(
                       "Assalamu Alaikum",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: Apptextstyle.body.copyWith(color: Colors.grey.shade300),
                     ),
                     Text(
                       "Welcome",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: Apptextstyle.subHeading
                     ),
                   ],
                 ),
@@ -104,6 +97,7 @@ class _SigninpageState extends State<Signinpage> {
                             ),
                           ),
                           child: TextField(
+                            style: Apptextstyle.input,
                             controller: _emailcontroller,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
@@ -112,6 +106,8 @@ class _SigninpageState extends State<Signinpage> {
                                 Icons.email_outlined,
                                 color: AppColors.emeraldGreen,
                               ),
+
+                              hintStyle: Apptextstyle.input,
                               hintText: "Email",
                             ),
                           ),
@@ -129,6 +125,9 @@ class _SigninpageState extends State<Signinpage> {
                           ),
                           child: Center(
                             child: TextField(
+                              style: Apptextstyle.input,
+                              textAlign: TextAlign.start,
+                              textAlignVertical: TextAlignVertical.center,
                               controller: _passwordcontroller,
                               obscureText: !authProvider.isPasswordVisible,
                               decoration: InputDecoration(
@@ -137,6 +136,7 @@ class _SigninpageState extends State<Signinpage> {
                                   Icons.lock_outline,
                                   color: AppColors.emeraldGreen,
                                 ),
+                                hintStyle: Apptextstyle.input,
                                 hintText: "Password",
                                 suffixIcon: IconButton(
                                   onPressed:
@@ -164,10 +164,8 @@ class _SigninpageState extends State<Signinpage> {
                             alignment: Alignment.centerRight,
                             child: Text(
                               "Forgot Password?",
-                              style: TextStyle(
+                              style: Apptextstyle.caption.copyWith(
                                 color: AppColors.emeraldGreen,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -198,11 +196,7 @@ class _SigninpageState extends State<Signinpage> {
                             child: Center(
                               child: Text(
                                 "Sign In",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 20,
-                                ),
+                                style: Apptextstyle.button,
                               ),
                             ),
                           ),
@@ -221,8 +215,7 @@ class _SigninpageState extends State<Signinpage> {
                             ),
                             Text(
                               "OR",
-                              style: TextStyle(
-                                fontSize: 20,
+                              style: Apptextstyle.body.copyWith(
                                 color: Colors.grey.shade300,
                               ),
                             ),
@@ -242,9 +235,8 @@ class _SigninpageState extends State<Signinpage> {
                           children: [
                             Text(
                               "Don't have an account?",
-                              style: TextStyle(
-                                color: AppColors.black,
-                                fontSize: 14,
+                              style: Apptextstyle.caption.copyWith(
+                                color: Colors.black54,
                               ),
                             ),
                             SizedBox(width: width * 0.02),
@@ -259,10 +251,8 @@ class _SigninpageState extends State<Signinpage> {
                               },
                               child: Text(
                                 "Sign Up",
-                                style: TextStyle(
+                                style: Apptextstyle.subHeading.copyWith(
                                   color: AppColors.emeraldGreen,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
                             ),
@@ -280,4 +270,3 @@ class _SigninpageState extends State<Signinpage> {
     );
   }
 }
-

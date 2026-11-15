@@ -1,3 +1,4 @@
+import 'package:faith/apptextstyle.dart';
 import 'package:faith/bottomnavi.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/profile_feature/presentation/provider/profileselectprovider.dart';
@@ -73,18 +74,13 @@ class _ProfilepageState extends State<Profilepage> {
                         children: [
                           Text(
                             "Almost there",
-                            style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 16,
+                            style: Apptextstyle.body.copyWith(
+                              color: Colors.grey.shade300,
                             ),
                           ),
                           Text(
                             "Setup Your Profile",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: Apptextstyle.subHeading,
                           ),
                         ],
                       ),
@@ -117,10 +113,8 @@ class _ProfilepageState extends State<Profilepage> {
                             padding: const EdgeInsets.only(left: 2, top: 4),
                             child: Text(
                               "FULL NAME",
-                              style: TextStyle(
+                              style: Apptextstyle.subHeading.copyWith(
                                 color: AppColors.black,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18,
                               ),
                             ),
                           ),
@@ -134,6 +128,7 @@ class _ProfilepageState extends State<Profilepage> {
                             ),
                             child: Center(
                               child: TextField(
+                                textAlignVertical: TextAlignVertical.center,
                                 controller: _nameController,
                                 decoration: InputDecoration(
                                   focusedBorder: OutlineInputBorder(
@@ -152,6 +147,9 @@ class _ProfilepageState extends State<Profilepage> {
                                   ),
                                   border: InputBorder.none,
                                   hintText: "Your name",
+                                  hintStyle: Apptextstyle.input.copyWith(
+                                    color: AppColors.black,
+                                  ),
                                 ),
                               ),
                             ),
@@ -161,10 +159,8 @@ class _ProfilepageState extends State<Profilepage> {
                             padding: const EdgeInsets.only(left: 2, top: 5),
                             child: Text(
                               "AGE",
-                              style: TextStyle(
+                              style: Apptextstyle.subHeading.copyWith(
                                 color: AppColors.black,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 18,
                               ),
                             ),
                           ),
@@ -179,6 +175,7 @@ class _ProfilepageState extends State<Profilepage> {
                             ),
                             child: Center(
                               child: TextField(
+                                textAlignVertical: TextAlignVertical.center,
                                 keyboardType: TextInputType.number,
                                 controller: _ageController,
                                 decoration: InputDecoration(
@@ -198,6 +195,9 @@ class _ProfilepageState extends State<Profilepage> {
                                   ),
                                   border: InputBorder.none,
                                   hintText: "Your age",
+                                  hintStyle: Apptextstyle.input.copyWith(
+                                    color: AppColors.black,
+                                  ),
                                 ),
                               ),
                             ),
@@ -233,19 +233,15 @@ class _ProfilepageState extends State<Profilepage> {
                         children: [
                           Text(
                             "Select Your Goals",
-                            style: TextStyle(
+                            style: Apptextstyle.subHeading.copyWith(
                               color: AppColors.black,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 18,
                             ),
                           ),
 
                           Text(
                             "Choose What you'd like to track",
-                            style: TextStyle(
+                            style: Apptextstyle.body.copyWith(
                               color: AppColors.black,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14,
                             ),
                           ),
                           goalItem(
@@ -348,27 +344,29 @@ class _ProfilepageState extends State<Profilepage> {
             color: isSelected ? AppColors.emeraldGreen : Colors.grey.shade300,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 3,
-              child: Icon(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
                 icon,
                 color: isSelected ? AppColors.emeraldGreen : AppColors.black,
               ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              flex: 8,
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: isSelected ? AppColors.emeraldGreen : AppColors.black,
+              const SizedBox(width: 10),
+              Expanded(
+                flex: 8,
+                child: Text(
+                  title,
+                  style: Apptextstyle.caption.copyWith(
+                    color: isSelected
+                        ? AppColors.emeraldGreen
+                        : AppColors.black,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

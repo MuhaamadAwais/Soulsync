@@ -1,3 +1,4 @@
+import 'package:faith/apptextstyle.dart';
 import 'package:faith/colorapp.dart';
 import 'package:faith/profile_feature/presentation/widget/profilepage.dart';
 import 'package:faith/signinpage.dart';
@@ -66,20 +67,9 @@ class _SinguppageState extends State<Singuppage> {
                   children: [
                     Text(
                       "Assalamu Alaikum",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: Apptextstyle.body.copyWith(color: Colors.white70),
                     ),
-                    Text(
-                      "Create Account",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    Text("Create Account", style: Apptextstyle.subHeading),
                   ],
                 ),
               ),
@@ -119,6 +109,7 @@ class _SinguppageState extends State<Singuppage> {
                             ),
                           ),
                           child: TextField(
+                            style: Apptextstyle.input,
                             controller: _namecontroller,
                             textAlignVertical: TextAlignVertical.center,
                             decoration: InputDecoration(
@@ -128,6 +119,7 @@ class _SinguppageState extends State<Singuppage> {
                                 color: AppColors.emeraldGreen,
                               ),
                               hintText: "Full Name",
+                              hintStyle: Apptextstyle.input,
                             ),
                           ),
                         ),
@@ -144,27 +136,65 @@ class _SinguppageState extends State<Singuppage> {
                               color: Colors.grey.shade300,
                             ),
                           ),
-                          child: Center(
-                            child: TextField(
-                              controller: _emailcontroller,
-                              textAlignVertical: TextAlignVertical.center,
-                              // obscureText: true,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.email_outlined,
-                                  color: AppColors.emeraldGreen,
+                          child: TextField(
+                            style: Apptextstyle.input,
+                            controller: _emailcontroller,
+                            textAlignVertical: TextAlignVertical.center,
+                            // obscureText: true,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              prefixIcon: Icon(
+                                Icons.email_outlined,
+                                color: AppColors.emeraldGreen,
+                              ),
+                              hint: Text("Email"),
+                              hintStyle: Apptextstyle.input,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 15),
+                        Container(
+                          width: width * 0.8,
+                          height: height * 0.07,
+
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              width: 1,
+                              color: Colors.grey.shade300,
+                            ),
+                          ),
+                          child: TextField(
+                            style: Apptextstyle.input,
+                            controller: _passwordcontroller,
+                            textAlignVertical: TextAlignVertical.center,
+                            obscureText: !authprovider.isPasswordVisible,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              prefixIcon: Icon(
+                                Icons.lock_outline,
+                                color: AppColors.emeraldGreen,
+                              ),
+                              hint: Text("Password"),
+                              hintStyle: Apptextstyle.input,
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  authprovider.togglePasswordVisibility();
+                                },
+                                icon: Icon(
+                                  authprovider.isPasswordVisible
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
                                 ),
-                                hint: Text("Email"),
                               ),
                             ),
                           ),
                         ),
+
                         SizedBox(height: 15),
                         Container(
                           width: width * 0.8,
                           height: height * 0.07,
-
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
@@ -172,65 +202,27 @@ class _SinguppageState extends State<Singuppage> {
                               color: Colors.grey.shade300,
                             ),
                           ),
-                          child: Center(
-                            child: TextField(
-                              controller: _passwordcontroller,
-                              textAlignVertical: TextAlignVertical.center,
-                              obscureText: !authprovider.isPasswordVisible,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.lock_outline,
-                                  color: AppColors.emeraldGreen,
-                                ),
-                                hint: Text("Password"),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    authprovider.togglePasswordVisibility();
-                                  },
-                                  icon: Icon(
-                                    authprovider.isPasswordVisible
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
-                                  ),
-                                ),
+                          child: TextField(
+                            style: Apptextstyle.input,
+                            controller: _confirmpasswordcontroller,
+                            textAlignVertical: TextAlignVertical.center,
+                            obscureText: !authprovider.isconfirmpassword,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              prefixIcon: Icon(
+                                Icons.lock_outline,
+                                color: AppColors.emeraldGreen,
                               ),
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(height: 15),
-                        Container(
-                          width: width * 0.8,
-                          height: height * 0.07,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.grey.shade300,
-                            ),
-                          ),
-                          child: Center(
-                            child: TextField(
-                              controller: _confirmpasswordcontroller,
-                              textAlignVertical: TextAlignVertical.center,
-                              obscureText: !authprovider.isconfirmpassword,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.lock_outline,
-                                  color: AppColors.emeraldGreen,
-                                ),
-                                hint: Text("Confirm  Password"),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    authprovider.toggleconfirmpassword();
-                                  },
-                                  icon: Icon(
-                                    authprovider.isconfirmpassword
-                                        ? Icons.visibility_outlined
-                                        : Icons.visibility_off_outlined,
-                                  ),
+                              hint: Text("Confirm  Password"),
+                              hintStyle: Apptextstyle.input,
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  authprovider.toggleconfirmpassword();
+                                },
+                                icon: Icon(
+                                  authprovider.isconfirmpassword
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
                                 ),
                               ),
                             ),
@@ -266,11 +258,7 @@ class _SinguppageState extends State<Singuppage> {
                             child: Center(
                               child: Text(
                                 "Sign Up",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 20,
-                                ),
+                                style: Apptextstyle.button,
                               ),
                             ),
                           ),
@@ -289,8 +277,7 @@ class _SinguppageState extends State<Singuppage> {
                             ),
                             Text(
                               "OR",
-                              style: TextStyle(
-                                fontSize: 20,
+                              style: Apptextstyle.body.copyWith(
                                 color: Colors.grey.shade300,
                               ),
                             ),
@@ -310,9 +297,8 @@ class _SinguppageState extends State<Singuppage> {
                           children: [
                             Text(
                               "Already have an account?",
-                              style: TextStyle(
-                                color: AppColors.black,
-                                fontSize: 14,
+                              style: Apptextstyle.caption.copyWith(
+                                color: Colors.black54,
                               ),
                             ),
                             SizedBox(width: width * 0.02),
@@ -327,11 +313,10 @@ class _SinguppageState extends State<Singuppage> {
                               },
                               child: Text(
                                 "Sign In",
-                                style: TextStyle(
+                                  style: Apptextstyle.subHeading.copyWith(
                                   color: AppColors.emeraldGreen,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w700,
                                 ),
+                             
                               ),
                             ),
                           ],

@@ -1,3 +1,4 @@
+import 'package:faith/apptextstyle.dart';
 import 'package:faith/colorapp.dart';
 import 'package:flutter/material.dart';
 
@@ -68,52 +69,51 @@ class Dhikrcompletewid extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "$engtext",
-                      style: TextStyle(
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20,
+                    FittedBox(
+                      child: Text(
+                        "$engtext",
+                        style: Apptextstyle.subHeading.copyWith(
+                          color: AppColors.black,
+                        ),
                       ),
                     ),
-
-                    Text(
-                      "$urdutext",
-                      style: TextStyle(
-                        color: AppColors.black,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
+                    SizedBox(height: height*.002),
+                    FittedBox(
+                      child: Text(
+                        "$urdutext",
+                        style: Apptextstyle.subHeading.copyWith(
+                          color: AppColors.black,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 Spacer(),
                 Container(
-                  width: width * 0.2,
+                  width: width * 0.18,
                   height: height * 0.075,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                     color: AppColors.emeraldGreen.withOpacity(0.2),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        "$count",
-                        style: TextStyle(
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18,
+                      FittedBox(
+                        child: Text(
+                          "$count",
+                           style: Apptextstyle.heading.copyWith(
+                            color: AppColors.black,
+                          ),
                         ),
                       ),
 
-                      Text(
-                        "x",
-                        style: TextStyle(
-                          color: AppColors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 20,
+                      FittedBox(
+                        child: Text(
+                          "x", style: Apptextstyle.body.copyWith(
+                            color: AppColors.black,
+                          ),
                         ),
                       ),
                     ],

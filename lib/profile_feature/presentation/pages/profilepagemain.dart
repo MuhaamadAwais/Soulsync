@@ -1,6 +1,7 @@
 import 'package:faith/colorapp.dart';
 import 'package:faith/profile_feature/presentation/provider/nameprovider.dart';
 import 'package:faith/profile_feature/presentation/widget/accountwid.dart';
+import 'package:faith/profile_feature/presentation/widget/deleteaccountwid.dart';
 import 'package:faith/profile_feature/presentation/widget/logoutwid.dart';
 import 'package:faith/profile_feature/presentation/widget/namewid.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +85,9 @@ class Profilepagemain extends StatelessWidget {
               SizedBox(height: height * 0.02),
 
               Center(child: Logoutwid()),
+              
+              SizedBox(height: height * 0.01),
+              Center(child: Deleteaccountwid()),
               SizedBox(height: height * 0.05),
             ],
           ),

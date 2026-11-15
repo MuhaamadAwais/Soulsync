@@ -39,16 +39,18 @@ class Selectitemwid extends StatelessWidget {
             width: 1,
           ),
         ),
-        child: Center(
-          child: Text(
-            name,
-            style: TextStyle(
-              color: isSelected ? AppColors.white : AppColors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: FittedBox(
+            child: Text(
+              name,
+              style: TextStyle(
+                color: isSelected ? AppColors.white : AppColors.black,
+              ),
             ),
           ),
         ),
       ),
     );
-  }}
+  }
+}
