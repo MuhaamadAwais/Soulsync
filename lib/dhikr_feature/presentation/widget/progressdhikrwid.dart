@@ -115,16 +115,7 @@ class _ProgressdhikrwidState extends State<Progressdhikrwid>
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      provider.currentDhikr,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: progressColor,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
+                
                     Text(
                       "${provider.counter}",
                       style: TextStyle(

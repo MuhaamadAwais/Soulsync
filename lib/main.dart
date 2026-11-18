@@ -1,4 +1,5 @@
 import 'package:faith/bottomnavi.dart';
+import 'package:faith/home_feature/presentation/services/notification_service.dart';
 import 'authprovider.dart';
 import 'package:faith/dhikr_feature/presentation/provider/dhikrprovider.dart';
 import 'package:faith/firebase_options.dart';
@@ -18,6 +19,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+ try {
+    await NotificationService.instance.init();
+  } catch (e) {
+    debugPrint('Notification init error: $e');
+  }
+
   runApp(const MyApp());
 }
 
