@@ -8,7 +8,13 @@ class PrayerNotificationScheduler {
   static const _prayers = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
   static const _daysAhead = 7;
   static const _baseId = 100; // test wali id 0 se na takraye
-
+  static const _urduNames = {
+    'Fajr': 'فجر',
+    'Dhuhr': 'ظہر',
+    'Asr': 'عصر',
+    'Maghrib': 'مغرب',
+    'Isha': 'عشاء',
+  };
   final _service = Payertimeservice();
 
   Future<void> scheduleUpcoming() async {
@@ -60,8 +66,9 @@ class PrayerNotificationScheduler {
 
         await notif.scheduleOnce(
           id: _baseId + day * 10 + i,
-          title: '$name ka waqt ho gaya',
-          body: 'Namaz ada karne ka waqt hai',
+          title: 'نمازِ ${_urduNames[name]} کا وقت ہو گیا ہے',
+          body:
+              'اپنے کام روک کر اللہ کی عبادت کے لیے وقت نکالیں اور نماز ادا فرمائیں۔',
           when: when,
         );
       }

@@ -14,35 +14,28 @@ class NotificationService {
   static const _prefKey = 'notifications_enabled';
 
   Future<void> init() async {
-    // Aap Bahawalpur ke liye bana rahe ho, is liye Pakistan ka timezone fix
     tzdata.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
-
     const android = AndroidInitializationSettings('ic_notification');
     const ios = DarwinInitializationSettings();
-
     await _plugin.initialize(
       const InitializationSettings(android: android, iOS: ios),
     );
-
     final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
     await androidPlugin?.requestNotificationsPermission();
     await androidPlugin?.requestExactAlarmsPermission();
   }
 
-  // ---------- Switch ki value ----------
   Future<bool> isEnabled() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_prefKey) ?? true;
   }
-
   Future<void> setEnabled(bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_prefKey, value);
   }
 
-  // ---------- Notification ka design ----------
   NotificationDetails get _details => const NotificationDetails(
         android: AndroidNotificationDetails(
           'prayer_channel',
@@ -56,12 +49,6 @@ class NotificationService {
         iOS: DarwinNotificationDetails(),
       );
 
-  // ---------- Testing ----------
-  Future<void> showSimple() async {
-    await _plugin.show(0, 'Faith', 'Ye ek simple notification hai', _details);
-  }
-
-  // ---------- Ek khaas waqt par sirf ek baar ----------
   Future<void> scheduleOnce({
     required int id,
     required String title,
