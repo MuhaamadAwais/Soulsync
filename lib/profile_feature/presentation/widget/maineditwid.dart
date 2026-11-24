@@ -11,12 +11,12 @@ class Maineditwid extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return Container(
       width: width,
-      height: height * 0.25,
+      height: height * 0.14,
       color: AppColors.emeraldGreen,
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.only(left: 10,top: 30),
             child: Backnamewid(nameabout: 'Edit Profile'),
           ),
          ],

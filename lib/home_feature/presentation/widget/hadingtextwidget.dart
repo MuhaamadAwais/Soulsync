@@ -13,7 +13,7 @@ class Hadingtextwidget extends StatelessWidget {
     final name = context.watch<Nameprovider>().name;
     String date = DateFormat('EEEE ,MMMM d').format(DateTime.now());
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

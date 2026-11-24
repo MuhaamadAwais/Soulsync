@@ -80,9 +80,7 @@ class _HomepageState extends State<Homepage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 5),
-
                     const Hadingtextwidget(),
-
                     Scorewidget(
                       score: provider.score,
                       CompletedCount: provider.CompletedCount,

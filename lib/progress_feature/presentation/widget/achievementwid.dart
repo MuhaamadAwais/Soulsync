@@ -141,7 +141,7 @@ class _AchievementwidState extends State<Achievementwid> {
             child: Icon(
               Icons.local_fire_department,
               color: AppColors.gold,
-              size: 30,
+              size: 24,
             ),
           ),
 
@@ -152,26 +152,30 @@ class _AchievementwidState extends State<Achievementwid> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.streakname,
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                FittedBox(
+                  child: Text(
+                    widget.streakname,
+                    style: TextStyle(
+                      color: AppColors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
 
                 const SizedBox(height: 4),
 
-                Text(
-                  widget.titlename,
-                  style: const TextStyle(color: Colors.grey, fontSize: 14),
+                FittedBox(
+                  child: Text(
+                    widget.titlename,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
                 ),
               ],
             ),
           ),
 
-          const Icon(Icons.check_circle, color: AppColors.gold, size: 28),
+          const Icon(Icons.check_circle, color: AppColors.gold, size: 24),
         ],
       ),
     );
@@ -198,7 +202,7 @@ class _AchievementwidState extends State<Achievementwid> {
             child: Icon(
               Icons.local_fire_department,
               color: AppColors.gold,
-              size: 30,
+              size: 24,
             ),
           ),
 
@@ -209,26 +213,30 @@ class _AchievementwidState extends State<Achievementwid> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.streakname,
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                FittedBox(
+                  child: Text(
+                    widget.streakname,
+                    style: TextStyle(
+                      color: AppColors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
 
                 const SizedBox(height: 4),
 
-                Text(
-                  widget.titlename,
-                  style: const TextStyle(color: Colors.grey, fontSize: 14),
+                FittedBox(
+                  child: Text(
+                    widget.titlename,
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
                 ),
               ],
             ),
           ),
 
-          const Icon(Icons.lock, color: AppColors.gold, size: 28),
+          const Icon(Icons.lock, color: AppColors.gold, size: 24),
         ],
       ),
     );

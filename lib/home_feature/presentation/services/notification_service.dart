@@ -12,21 +12,33 @@ class NotificationService {
 
   final _plugin = FlutterLocalNotificationsPlugin();
   static const _prefKey = 'notifications_enabled';
+Future<void> init() async {
+  final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
+      AndroidFlutterLocalNotificationsPlugin>();
 
-  Future<void> init() async {
-    tzdata.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
-    const android = AndroidInitializationSettings('ic_notification');
-    const ios = DarwinInitializationSettings();
-    await _plugin.initialize(
-      const InitializationSettings(android: android, iOS: ios),
-    );
-    final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
-        AndroidFlutterLocalNotificationsPlugin>();
-    await androidPlugin?.requestNotificationsPermission();
-    await androidPlugin?.requestExactAlarmsPermission();
-  }
+  // 1) Pehle channel banao aur permission maango
+  await androidPlugin?.createNotificationChannel(
+    const AndroidNotificationChannel(
+      'prayer_channel',
+      'Prayer Times',
+      description: 'Namaz ke waqt ki notifications',
+      importance: Importance.high,
+    ),
+  );
+  final granted = await androidPlugin?.requestNotificationsPermission();
+  debugPrint('Notification permission granted: $granted');
 
+  // 2) Phir baqi setup
+  tzdata.initializeTimeZones();
+  tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
+  const android = AndroidInitializationSettings('ic_notification');
+  const ios = DarwinInitializationSettings();
+  await _plugin.initialize(
+    const InitializationSettings(android: android, iOS: ios),
+  );
+
+  await androidPlugin?.requestExactAlarmsPermission();
+}
   Future<bool> isEnabled() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_prefKey) ?? true;

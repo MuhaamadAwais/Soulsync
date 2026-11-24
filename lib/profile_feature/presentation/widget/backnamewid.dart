@@ -17,14 +17,14 @@ class Backnamewid extends StatelessWidget {
             Navigator.pop(context);
           },
           child: Container(
-            width: width * 0.1,
-            height: width * 0.1,
+            width: width * 0.08,
+            height: width * 0.08,
             decoration: BoxDecoration(
               color: AppColors.white.withOpacity(0.2),
               border: Border.all(width: 1, color: AppColors.white),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Center(child: Icon(Icons.arrow_back, color: AppColors.white)),
+            child: Center(child: Icon(Icons.arrow_back, color: AppColors.white,size: 18,)),
           ),
         ),
         SizedBox(width: width * 0.03),

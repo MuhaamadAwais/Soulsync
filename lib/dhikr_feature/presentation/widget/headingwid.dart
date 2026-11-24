@@ -12,7 +12,7 @@ class Headingwid extends StatelessWidget {
     return Container(
       color: AppColors.emeraldGreen,
       width: width,
-      height: height * 0.19,
+      height: height * 0.14,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

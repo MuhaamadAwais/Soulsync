@@ -19,14 +19,16 @@ class _FaqspageState extends State<Faqspage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header
               Container(
-                height: height * 0.15,
+                height: height * 0.14,
                 width: double.infinity,
                 color: AppColors.emeraldGreen,
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.only(left: 10, top: 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -35,8 +37,8 @@ class _FaqspageState extends State<Faqspage> {
                           Navigator.pop(context);
                         },
                         child: Container(
-                          width: width * 0.1,
-                          height: width * 0.1,
+                          width: width * 0.08,
+                          height: width * 0.08,
                           decoration: BoxDecoration(
                             color: AppColors.white.withOpacity(0.2),
                             border: Border.all(
@@ -48,6 +50,7 @@ class _FaqspageState extends State<Faqspage> {
                           child: Center(
                             child: Icon(
                               Icons.arrow_back,
+                              size: 18,
                               color: AppColors.white,
                             ),
                           ),
@@ -66,12 +69,11 @@ class _FaqspageState extends State<Faqspage> {
                               fontSize: 20,
                             ),
                           ),
-                          const SizedBox(height: 4),
                           Text(
                             "We're here to help you on your\nfaith journey",
                             style: TextStyle(
                               color: AppColors.white,
-                              fontSize: 14,
+                              fontSize: 12,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -82,7 +84,7 @@ class _FaqspageState extends State<Faqspage> {
                 ),
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 30),
 
               // Title Section
               Padding(
@@ -99,6 +101,7 @@ class _FaqspageState extends State<Faqspage> {
                       child: const Icon(
                         Icons.question_mark,
                         color: Colors.white,
+                        size: 18,
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -115,7 +118,7 @@ class _FaqspageState extends State<Faqspage> {
                 ),
               ),
 
-              SizedBox(height: height * 0.02),
+              SizedBox(height: height * 0.03),
               // FAQs
               faqTile(
                 "What is Faith Check?",
@@ -176,7 +179,7 @@ class _FaqspageState extends State<Faqspage> {
         collapsedIconColor: AppColors.emeraldGreen,
         title: Text(
           question,
-          style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 16),
+          style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
         children: [
           Padding(
