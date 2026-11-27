@@ -12,54 +12,63 @@ class NotificationService {
 
   final _plugin = FlutterLocalNotificationsPlugin();
   static const _prefKey = 'notifications_enabled';
-Future<void> init() async {
-  final androidPlugin = _plugin.resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>();
 
-  // 1) Pehle channel banao aur permission maango
-  await androidPlugin?.createNotificationChannel(
-    const AndroidNotificationChannel(
-      'prayer_channel',
-      'Prayer Times',
-      description: 'Namaz ke waqt ki notifications',
-      importance: Importance.high,
-    ),
-  );
-  final granted = await androidPlugin?.requestNotificationsPermission();
-  debugPrint('Notification permission granted: $granted');
-
-  // 2) Phir baqi setup
-  tzdata.initializeTimeZones();
-  tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
-  const android = AndroidInitializationSettings('ic_notification');
-  const ios = DarwinInitializationSettings();
-  await _plugin.initialize(
-    const InitializationSettings(android: android, iOS: ios),
-  );
-
-  await androidPlugin?.requestExactAlarmsPermission();
-}
   Future<bool> isEnabled() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_prefKey) ?? true;
   }
+
+  Future<void> init() async {
+    // Timezone
+    tzdata.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation('Asia/Karachi'));
+
+    // Plugin initialize (sab se pehle)
+    const android = AndroidInitializationSettings('ic_notification');
+    const ios = DarwinInitializationSettings();
+    await _plugin.initialize(
+      const InitializationSettings(android: android, iOS: ios),
+    );
+
+    final androidPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
+
+    // Channel
+    await androidPlugin?.createNotificationChannel(
+      const AndroidNotificationChannel(
+        'prayer_channel',
+        'Prayer Times',
+        description: 'Namaz ke waqt ki notifications',
+        importance: Importance.high,
+      ),
+    );
+
+    // Permissions
+    final granted = await androidPlugin?.requestNotificationsPermission();
+    debugPrint('Notification permission granted: $granted');
+    final exact = await androidPlugin?.requestExactAlarmsPermission();
+    debugPrint('Exact alarm granted: $exact');
+  }
+
   Future<void> setEnabled(bool value) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_prefKey, value);
   }
 
   NotificationDetails get _details => const NotificationDetails(
-        android: AndroidNotificationDetails(
-          'prayer_channel',
-          'Prayer Times',
-          channelDescription: 'Namaz ke waqt ki notifications',
-          importance: Importance.high,
-          priority: Priority.high,
-          icon: 'ic_notification',
-          color: Color(0xFF0B6E4F),
-        ),
-        iOS: DarwinNotificationDetails(),
-      );
+    android: AndroidNotificationDetails(
+      'prayer_channel',
+      'Prayer Times',
+      channelDescription: 'Namaz ke waqt ki notifications',
+      importance: Importance.high,
+      priority: Priority.high,
+      icon: 'ic_notification',
+      color: Color(0xFF0B6E4F),
+    ),
+    iOS: DarwinNotificationDetails(),
+  );
 
   Future<void> scheduleOnce({
     required int id,

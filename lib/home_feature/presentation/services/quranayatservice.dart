@@ -5,8 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class QuranService {
   static const String arabicKey = 'daily_arabic_ayah';
+  static const String surahNameKey = 'daily_surah_name';
+  static const String ayahNumberKey = 'daily_ayah_number_in_surah';
   static const String urduKey = 'daily_urdu_ayah';
-  static const String savedDateKey = 'daily_ayah_date';
+  static const String savedDateKey = 'daily_ayah_date_v2';
 
   Future<Map<String, String>> getDailyAyah() async {
     final prefs = await SharedPreferences.getInstance();
@@ -34,6 +36,8 @@ class QuranService {
       return {
         'arabic': prefs.getString(arabicKey) ?? '',
         'urdu': prefs.getString(urduKey) ?? '',
+        'surahName': prefs.getString(surahNameKey) ?? '',
+        'ayahNumber': prefs.getString(ayahNumberKey) ?? '',
       };
     }
 
@@ -55,6 +59,10 @@ class QuranService {
       final ayahNumber = randomData['data']['number'];
 
       final arabicText = randomData['data']['text'];
+
+      final surahName = randomData['data']['surah']['name'].toString();
+
+      final ayahInSurah = randomData['data']['numberInSurah'].toString();
 
       // ==========================================================
       // URDU
@@ -81,12 +89,17 @@ class QuranService {
       // ==========================================================
 
       await prefs.setString(arabicKey, arabicText);
-
       await prefs.setString(urduKey, urduText);
-
+      await prefs.setString(surahNameKey, surahName);
+      await prefs.setString(ayahNumberKey, ayahInSurah);
       await prefs.setString(savedDateKey, currentDailyDate);
 
-      return {'arabic': arabicText, 'urdu': urduText};
+      return {
+        'arabic': arabicText,
+        'urdu': urduText,
+        'surahName': surahName,
+        'ayahNumber': ayahInSurah,
+      };
     }
     // ============================================================
     // NO INTERNET / API ERROR
@@ -103,12 +116,17 @@ class QuranService {
           savedArabic.isNotEmpty &&
           savedUrdu != null &&
           savedUrdu.isNotEmpty) {
-        return {'arabic': savedArabic, 'urdu': savedUrdu};
+        return {
+          'arabic': savedArabic,
+          'urdu': savedUrdu,
+          'surahName': prefs.getString(surahNameKey) ?? '',
+          'ayahNumber': prefs.getString(ayahNumberKey) ?? '',
+        };
       }
 
       // Agar pehli dafa app open hui hai
       // aur koi ayat save nahi hai
-      return {'arabic': '', 'urdu': ''};
+      return {'arabic': '', 'urdu': '', 'surahName': '', 'ayahNumber': ''};
     }
   }
 }

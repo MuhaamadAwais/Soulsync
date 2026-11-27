@@ -1,5 +1,6 @@
 import 'package:faith/bottomnavi.dart';
 import 'package:faith/home_feature/presentation/services/notification_service.dart';
+import 'package:faith/home_feature/presentation/services/prayer_notification_scheduler.dart';
 import 'authprovider.dart';
 import 'package:faith/dhikr_feature/presentation/provider/dhikrprovider.dart';
 import 'package:faith/firebase_options.dart';
@@ -15,15 +16,27 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'dart:async';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
- try {
+
+  try {
     await NotificationService.instance.init();
-  } catch (e) {
+    debugPrint('Notification init DONE');
+  } catch (e, st) {
     debugPrint('Notification init error: $e');
+    debugPrint('$st');
   }
+
+  unawaited(
+    PrayerNotificationScheduler().scheduleUpcoming().catchError((e, st) {
+      debugPrint('Schedule error: $e');
+      debugPrint('$st');
+    }),
+  );
 
   runApp(const MyApp());
 }

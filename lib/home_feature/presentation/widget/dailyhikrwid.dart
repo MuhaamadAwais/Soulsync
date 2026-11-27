@@ -32,6 +32,8 @@ class _DailyhikrwidState extends State<Dailyhikrwid> {
 
         final arabic = snapshot.data!['arabic'] ?? '';
         final urdu = snapshot.data!['urdu'] ?? '';
+        final surahName = snapshot.data!['surahName'] ?? '';
+        final ayahNumber = snapshot.data!['ayahNumber'] ?? '';
         return Container(
           width: double.infinity,
           margin: const EdgeInsets.all(8),
@@ -44,19 +46,34 @@ class _DailyhikrwidState extends State<Dailyhikrwid> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                arabic,
+              Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text:
+                          '${arabic.replaceAll('', '').trim()} ',
+                      style: const TextStyle(
+                        fontSize: 22,
+                        height: 2,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    if (surahName.isNotEmpty)
+                      TextSpan(
+                        text: '($surahName\u00A0-\u00A0آیت\u00A0$ayahNumber)',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          height: 2,
+                          fontWeight: FontWeight.normal,
+                          color: AppColors.emeraldGreen,
+                        ),
+                      ),
+                  ],
+                ),
                 textAlign: TextAlign.right,
                 textDirection: TextDirection.rtl,
-                style: const TextStyle(
-                  fontSize: 22,
-                  height: 2,
-                  fontWeight: FontWeight.w600,
-                ),
               ),
-
-              const SizedBox(height: 20),
-
+              const SizedBox(height: 10),
               Text(
                 urdu,
                 textAlign: TextAlign.right,

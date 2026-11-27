@@ -67,8 +67,9 @@ class PrayerNotificationScheduler {
         await notif.scheduleOnce(
           id: _baseId + day * 10 + i,
           title: 'نمازِ ${_urduNames[name]} کا وقت ہو گیا ہے',
-          body:
-              'اپنے کام روک کر اللہ کی عبادت کے لیے وقت نکالیں اور نماز ادا فرمائیں۔',
+          body: '',
+          // body:
+          //     'اپنے کام روک کر اللہ کی عبادت کے لیے وقت نکالیں اور نماز ادا فرمائیں۔',
           when: when,
         );
       }
